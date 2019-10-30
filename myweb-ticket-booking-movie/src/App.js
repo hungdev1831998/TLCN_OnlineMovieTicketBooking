@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import SignIn from "./Demo/Authentication/SignIn/SignIn";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -13,7 +14,8 @@ class App extends React.Component {
       <Router>
            <Route exact path='/' component={Header}/> 
            <Route exact path='/' component={Footer}/>
-           <Route exact path='/signin' component={SignIn} />
+           <Route exact path='/login' component={Login} />
+           <Route exact path='/Register' component={Register} />
       </Router>
     );
   }

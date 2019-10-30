@@ -1,9 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./header.scss";
-import SignIn from "./../../Demo/Authentication/SignIn/SignIn";
-import CardContent from '../cartcontent/cartcontent';
 class Header extends React.Component {
     render() {
         return (
@@ -32,7 +29,7 @@ class Header extends React.Component {
                                         <div>
                                             <ul className="nav navbar-nav navbar-right">
                                                 <li>
-                                                    <Link to="/signin">LOGIN</Link>
+                                                    <Link to="/login">LOGIN</Link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -149,7 +146,7 @@ class Header extends React.Component {
                                                 <h4><span className="glyphicon glyphicon-lock" /> Tickets</h4>
                                             </div>
                                             <div className="modal-body">
-                                                <form role="form">
+                                                <form>
                                                     <div className="form-group">
                                                         <label htmlFor="psw"><span className="glyphicon glyphicon-shopping-cart" /> Tickets, $23 per person</label>
                                                         <input type="number" className="form-control" id="psw" placeholder="How many?" />
@@ -159,15 +156,15 @@ class Header extends React.Component {
                                                         <input type="text" className="form-control" id="usrname" placeholder="Enter email" />
                                                     </div>
                                                     <button type="submit" className="btn btn-block">Pay
-                      <span className="glyphicon glyphicon-ok" />
+                                                        <span className="glyphicon glyphicon-ok" />
                                                     </button>
                                                 </form>
                                             </div>
                                             <div className="modal-footer">
                                                 <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal">
                                                     <span className="glyphicon glyphicon-remove" /> Cancel
-                  </button>
-                                                <p>Need <a href="#">help?</a></p>
+                                                </button>
+                                                <a href="/">help?</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +180,7 @@ class Header extends React.Component {
                                                 <h4><span className="glyphicon glyphicon-lock" /> Details Films</h4>
                                             </div>
                                             <div className="modal-body">
-                                                <form role="form">
+                                                <form>
                                                     <div className="form-group">
                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tên phim: </label><br /><br />
                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Diễn viên:</label><br /><br />

@@ -1,68 +1,98 @@
-// import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-// import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React from 'react';
+import { NavLink, Route, Redirect } from 'react-router-dom';
+import axios from "axios";
+import './Login.scss';
+import Register from './../Register/Register';
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
 
-// class Login extends Component {
-//   render() {
-//     return (
-//       <div>
-//       <div>asdsd</div>
-//       <div className="app flex-row align-items-center">
-      
-        
-//           <Row className="justify-content-center">
-//             <Col md="8">
-//               <CardGroup>
-//                 <Card className="p-4">
-//                   <CardBody>
-//                     <Form>
-//                       <h1>Login</h1>
-//                       <p className="text-muted">Sign In to your account</p>
-//                       <InputGroup className="mb-3">
-//                         <InputGroupAddon addonType="prepend">
-//                           <InputGroupText>
-//                             <i className="icon-user"></i>
-//                           </InputGroupText>
-//                         </InputGroupAddon>
-//                         <Input type="text" placeholder="Username" autoComplete="username" />
-//                       </InputGroup>
-//                       <InputGroup className="mb-4">
-//                         <InputGroupAddon addonType="prepend">
-//                           <InputGroupText>
-//                             <i className="icon-lock"></i>
-//                           </InputGroupText>
-//                         </InputGroupAddon>
-//                         <Input type="password" placeholder="Password" autoComplete="current-password" />
-//                       </InputGroup>
-//                       <Row>
-//                         <Col xs="6">
-//                           <Button color="primary" className="px-4">Login</Button>
-//                         </Col>
-//                         <Col xs="6" className="text-right">
-//                           <Button color="link" className="px-0">Forgot password?</Button>
-//                         </Col>
-//                       </Row>
-//                     </Form>
-//                   </CardBody>
-//                 </Card>
-//                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-//                   <CardBody className="text-center">
-//                     <div>
-//                       <h2>Sign up</h2>
-//                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-//                         labore et dolore magna aliqua.</p>
-//                       <Link to="/register">
-//                         <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
-//                       </Link>
-//                     </div>
-//                   </CardBody>
-//                 </Card>
-//               </CardGroup>
-//             </Col>
-//           </Row>
-//       </div></div>
-//     );
-//   }
-// }
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.state= {
+            email: '',
+            password: '',
+            submit: false
+        };
+    }
 
-// export default Login;
+    onChangeEmail = (e) => {
+        this.setState({
+            email: e.target.value
+        });
+    }
+
+    onChangePassword = (password) => {
+        this.setState({
+            password: password.target.value
+        });
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:3001/user/alluser')
+        .then(res => console.log(res.data));
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        const account = {
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post('http://localhost:3001/user/login', account)
+        .then( (res) => {
+            this.setState({submit: true});
+        });
+        this.setState({
+            email: "",
+            password: ""
+        });
+    }
+
+    render() {
+        return (
+            !this.state.submit ? (
+                <div className="auth-wrapper">
+                    <div className="auth-content">
+                        <div className="auth-bg">
+                            <span className="r" />
+                            <span className="r s" />
+                            <span className="r s" />
+                            <span className="r" />
+                        </div>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="card">
+                                <div className="card-body text-center">
+                                    <div className="mb-4">
+                                        <i className="feather icon-unlock auth-icon" />
+                                    </div>
+                                    <h3 className="mb-4">Login</h3>
+                                    <div className="input-group mb-3">
+                                        <input type="email" required className="form-control" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} name="email" />
+                                    </div>
+                                    <div className="input-group mb-4">
+                                        <input type="password" className="form-control" placeholder="password" required value={this.state.password} onChange={this.onChangePassword} name="password" />
+                                    </div>
+                                    <button className="btn btn-primary shadow-2 mb-4" type="submit ">Login</button>
+                                    <p className="mb-2 text-muted">Forgot password? <NavLink to="/auth/reset-password-1">Reset</NavLink></p>
+                                    <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/register">Register</NavLink></p>
+                                    <div className="main-route-place">
+                                        <Route exact path="/register" component={Register} />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            ) : ( 
+            <Redirect to={{ pathname: "/", state: { from: "/login" } }} />
+            )
+        );
+    }
+}
+
+export default Login;
