@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import SignIn from "./Demo/Authentication/SignIn/SignIn";
 import Header from "./components/header/header";
-import {BrowserRouter} from 'react-router-dom';
+import Footer from "./components/footer/footer";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SignUp from './Demo/Authentication/SignUp/SignUp';
 // import CartContent from './components/cartcontent/cartcontent';
 import Login from "./components/Login/Login";
@@ -28,14 +29,18 @@ class App extends React.Component {
       //   </a>
       //   </header>
       
-      <BrowserRouter>
+      <Router>
             {/* <SignUp />  */}
          {/*  <SignIn/> */}
            <Header/> 
+            {/* <Home /> */}
+           <Footer/>
+           <Route path={"/signin"}></Route>
+           {/* <SignIn */}
            {/* <CartContent/> */}
            {/* <Login/> */}
-      </BrowserRouter>
-
+      </Router>
+    
       //  </div>
     );
   }
