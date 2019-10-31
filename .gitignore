@@ -32,3 +32,4 @@ npm-debug.log
 # Dependency directories
 node_modules
 jspm_packages
+myweb-ticket-booking-movie/package-lock.json

@@ -5,7 +5,7 @@ import Register from "./components/Register/Register";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import RouterWeb from './routes';
+
 
 
 class App extends React.Component {
@@ -13,9 +13,10 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-         <Header/>
-         <RouterWeb/>
-         <Footer/>
+           <Route exact path='/' component={Header}/> 
+           <Route exact path='/' component={Footer}/>
+           <Route exact path='/login' component={Login} />
+           <Route exact path='/Register' component={Register} />
       </Router>
     );
   }
