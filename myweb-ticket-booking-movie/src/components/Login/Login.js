@@ -3,6 +3,7 @@ import { NavLink, Route, Redirect } from 'react-router-dom';
 import axios from "axios";
 import './Login.scss';
 import Register from './../Register/Register';
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -30,10 +31,17 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3001/user/alluser')
-        .then(res => console.log(res.data));
+        // axios.get('http://localhost:3001/user/alluser')
+        // .then(res => console.log(res.data));
+        // axios.get("http://localhost:3001/user/authchecker")
+        // .then((res) => {
+        //     console.log(res.data);
+        // })
+        // .catch((err) => {
+            
+        // });
     }
-
+    
     onSubmit = (e) => {
         e.preventDefault();
 
@@ -43,9 +51,13 @@ class Login extends React.Component {
         }
 
         axios.post('http://localhost:3001/user/login', account)
-        .then( (res) => {
-            this.setState({submit: true});
+        .then((res) => {
+            if(res.data["message"] === "login success!") {
+                localStorage.setItem("user",JSON.stringify(res.data["sess"]));
+                this.setState({submit: true});
+            }
         });
+
         this.setState({
             email: "",
             password: ""
@@ -89,7 +101,7 @@ class Login extends React.Component {
                     </div>
                 </div>
             ) : ( 
-            <Redirect to={{ pathname: "/", state: { from: "/login" } }} />
+                <Redirect to={{ pathname: "/", state: { from: "/login" } }} />
             )
         );
     }

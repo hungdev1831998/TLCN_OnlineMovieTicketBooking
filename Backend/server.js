@@ -4,23 +4,12 @@ const fs = require('fs');
 const filmRouter = require('./src/router/fimls');
 const userRouter = require('./src/router/users');
 const mongoose = require('mongoose');
-const session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 
 server.use(cors());
 server.use(express.static('uploads'));
 server.set('view engine', 'ejs');
 
-//use sessions for tracking logins
-server.use(session({
-    secret: 'work hard',
-    resave: true,
-    saveUninitialized: false,
-    store: new MongoStore({
-        mongooseConnection: mongoose.connection
-    })
-  }));
 
 server.use('/user', userRouter);
 server.use('/film', filmRouter);

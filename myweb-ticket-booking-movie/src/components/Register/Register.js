@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Redirect, NavLink } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import axios from "axios";
 import './Register.scss';
 
@@ -99,7 +99,7 @@ class Register extends React.Component {
                                         <input type="password" className="form-control" placeholder="Confirm password" required value={this.state.passwordConf} onChange={this.onChangePasswordConf} name="passwordConf"/>
                                     </div>
                                     <button className="btn btn-info shadow-2 mb-4" type="submit">Sign up</button>
-                                    <p className="mb-0 text-muted">Allready have an account? <NavLink to="/auth/signin-1">Login</NavLink></p>
+                                    <p className="mb-0 text-muted">Allready have an account? <NavLink to="/login">Login</NavLink></p>
                                 </div>
                             </div>
                         </form>

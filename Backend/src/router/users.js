@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
 
-
-
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
@@ -13,14 +11,6 @@ const mongoose = require('mongoose');
 
 require("../model/User");
 const User = mongoose.model("User");
-
- requiresLogin = (req, res, next) => {
-    if (req.session && req.session.userId) {
-      return next();
-    } else {
-      res.send('You must be logged in to view this page.');
-    }
-  }
 
 router.get('/', (req, res) => {
     var drinks = [
@@ -80,8 +70,8 @@ router.post('/login', (req, res, next) => {
               err.status = 401;
               return next(err);
             } else {
-              req.session.userId = user._id;
-              res.json({"message": "login success!"});
+              var {_id, username} = user; 
+              res.json({"message": "login success!", "sess":  {_id, username}});
             }
 
         });
@@ -98,20 +88,20 @@ router.get('/alluser', (req, res)  => {
     });
 });
 
-router.get('/user', requiresLogin, (req, res) => {
-    User.findById(req.session.userId).then((user) => {
-        if(user) {
-            res.json(user);
-        } else {
-            res.sendStatus(404);
-        }
-
-    }).catch((err) => {
-        if(err) {
-            throw err;
-        }
-    });
-});
+// router.get('/user', (req, res) => {
+//     User.findById(req.session.userId).then((user) => {
+//         if(user) {
+//             res.json(user);
+//             console.log(user);
+//         } else {
+//             res.sendStatus(404);
+//         }
+//     }).catch((err) => {
+//         if(err) {
+//             throw err;
+//         }
+//     });
+// });
 
 router.get('/logout', (req, res, next) => {
   if (req.session) {
@@ -120,7 +110,8 @@ router.get('/logout', (req, res, next) => {
       if(err) {
         return next(err);
       } else {
-        return res.redirect('/user');
+        res.clearCookie("session-id");
+        return res.send("Logged out successfully");
       }
     });
   }
