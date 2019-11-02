@@ -11,6 +11,7 @@ class Login extends React.Component {
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onResetForm=this.onResetForm.bind(this);
         this.state= {
             email: '',
             password: '',
@@ -27,6 +28,14 @@ class Login extends React.Component {
     onChangePassword = (password) => {
         this.setState({
             password: password.target.value
+        });
+    }
+
+    onResetForm = () => {
+        this.setState({
+            ...this.state,
+            email: '',
+            password: ''
         });
     }
 
@@ -89,11 +98,12 @@ class Login extends React.Component {
                                         <input type="password" className="form-control" placeholder="password" required value={this.state.password} onChange={this.onChangePassword} name="password" />
                                     </div>
                                     <button className="btn btn-primary shadow-2 mb-4" type="submit ">Login</button>
-                                    <p className="mb-2 text-muted">Forgot password? <NavLink to="/auth/reset-password-1">Reset</NavLink></p>
+                                    <p className="mb-2 text-muted">Forgot password? <NavLink to="/reset" onClick={this.onResetForm}>Reset</NavLink></p>
                                     <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/register">Register</NavLink></p>
                                     <div className="main-route-place">
                                         <Route exact path="/register" component={Register} />
                                     </div>
+                                    
                                 </div>
                             </div>
                         </form>

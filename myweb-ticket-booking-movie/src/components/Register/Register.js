@@ -11,6 +11,7 @@ class Register extends React.Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangePasswordConf = this.onChangePasswordConf.bind(this);
+        this.onResetForm=this.onResetForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state= {
             email: '',
@@ -43,7 +44,15 @@ class Register extends React.Component {
             passwordConf: passwordConf.target.value
         });
     }
-
+    onResetForm = () => {
+        this.setState({
+            ...this.state,
+            email: '',
+            username: '',
+            password: '',
+            passwordConf: '',
+        });
+    }
     onSubmit = (e) => {
         e.preventDefault();
 
@@ -99,6 +108,7 @@ class Register extends React.Component {
                                         <input type="password" className="form-control" placeholder="Confirm password" required value={this.state.passwordConf} onChange={this.onChangePasswordConf} name="passwordConf"/>
                                     </div>
                                     <button className="btn btn-info shadow-2 mb-4" type="submit">Sign up</button>
+                                    <p className="mb-2 text-muted">Input again? <NavLink to="/resetRegister" onClick={this.onResetForm}>Reset</NavLink></p>
                                     <p className="mb-0 text-muted">Allready have an account? <NavLink to="/login">Login</NavLink></p>
                                 </div>
                             </div>
