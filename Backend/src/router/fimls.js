@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
+const DateOnly = require('date-only');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
@@ -28,6 +29,17 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/getfilms', (req, res)  => {
+    // const dateOnly = new DateOnly();
+    // console.log(JSON.stringify(dateOnly));
+    Film.find({$and: [{NgayChieu:{$lte:Date.now()}}, {NgayKetThuc:{$gte:Date.now()}}]}, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
+        res.json(films);
+    }).catch((err) => {
+        if(err) {
+            throw err;
+        }
+    });
+});
 router.get('/allfilms', (req, res)  => {
     Film.find({}, 'TenFilm DaoDien TenNuocSX AnhBia').then((films) => {
         res.json(films);
@@ -56,7 +68,7 @@ router.get('/film/:id', (req, res) => {
 
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: './uploads/',
+    destination: '../myweb-ticket-booking-movie/public/img/',
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -90,11 +102,11 @@ router.post('/upload', (req, res) => {
                 TongChi: req.body.TongChi,
                 NgayChieu: req.body.NgayChieu,
                 NgayKetThuc: req.body.NgayKetThuc,
-                AnhBia: req.file.path.split('\\')[1]
+                AnhBia: "img/" + req.file.path.split('\\')[4],
+                TomTat: req.body.TomTat
             };
-            
+            console.log(req.body.NgayKetThuc);
             var film = new Film(newFilm);
-        
             film.save().then(() => {
                 console.log("New film created!");
             }).catch((err) => {
