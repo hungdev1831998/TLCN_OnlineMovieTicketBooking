@@ -13,6 +13,10 @@ var FilmSchema = new mongoose.Schema({
         type: String,
         require:true
     },
+    TomTat: {
+        type: String,
+        require:true
+    },
     TongThu: {
         type:Number,
         default : 0

@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 server.use(cors());
-server.use(express.static('uploads'));
+server.use(express.static('./uploads'));
 server.set('view engine', 'ejs');
 
 

@@ -46,7 +46,7 @@ class Header extends React.Component {
                                     <div>
                                         <ul className="nav navbar-nav navbar-left">
                                             <li>
-                                                <img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} />
+                                                <Link to="/"><img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} /> </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -60,8 +60,7 @@ class Header extends React.Component {
                                                 </li>
                                                 :
                                                 <li>
-                                                    <p>{this.state.usrname}</p>
-                                                    <a onClick={this.onLogout} href="">LOGOUT</a>
+                                                    <Link to="/"><strong>{this.state.usrname}</strong> <a onClick={this.onLogout} href="/">    LOGOUT</a></Link>
                                                 </li>
                                             }
                                         </ul>
