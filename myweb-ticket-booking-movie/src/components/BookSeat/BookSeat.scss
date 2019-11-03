@@ -1,0 +1,203 @@
+.cinema-wrap {
+    position: relative;
+    // display: inline-block;
+    width: auto;
+}
+.cinema-title {
+    font-family: futurab;
+    font-weight: 400;
+    font-size: 24px;
+    color: #fff;
+    display: block;
+    background-color: #969696;
+    text-transform: uppercase;
+    border: 1px solid #fff;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    line-height: 42px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,.1);
+    text-align: center;
+    margin-bottom: 20px; //màn hình cách ghế
+    margin-top: 200px;
+    margin-left: 400px;  //
+    margin-right: 485px;  //
+}
+.cinema-seat td.road {
+    background-color: #c6c6c6;
+    color: #fff;
+    font-family: myriadbold;
+    font-weight: 400;
+    font-size: 16px;
+}
+.cinema-seat td.single {
+    background: #ededed url("/img/single-chair.jpg") no-repeat center top;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+}
+
+.cinema-seat .single {
+    cursor: pointer;
+}
+
+.cinema-seat table td {
+    min-width: 43px;
+    width: 43px;
+    height: 46px;
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+    font-family: futurab;
+    font-weight: 400;
+    font-size: 11px;
+    color: #2d2d30;
+    text-transform: uppercase;
+}
+
+
+
+.cinema-seat table {
+    width: auto;
+    margin: 0 auto;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+.cinema-seat {
+    width: auto;
+    text-align: center;
+    display: none;
+    margin-bottom: 50px;
+}
+.cinema-content {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: none;
+    text-align: center;
+    background-color: #fff;
+}
+body {
+    margin: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    font-family: Arial,Helvetica,sans-serif;
+    // line-height: 1;      //ảnh hưởng footer
+    overflow: hidden;
+    overflow-y: auto;
+    // background: url(https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiW4a-0ns7lAhWnF6YKHaXfAJMQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DJvHqCk3l3UE&psig=AOvVaw2THBlwQfpNSuD1qS1P7cuL&ust=1572877215753387) repeat-y left top;
+    background-size: contain;
+    -webkit-background-size: contain;
+}
+html {
+    color: -internal-root-color;
+}
+////@at-root
+.cinema-note li.single {
+    background: url("/img/single-chair.jpg") no-repeat left top;
+    padding-left: 50px;
+}
+.cinema-note {
+    position: relative;
+    width: 100%;
+    margin: 0 0 30px;
+    text-align: center;
+}
+.cinema-note li {
+    display: inline-block;
+    line-height: 46px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #434343;
+    margin: 0 7px;
+}
+.cinema-note li.couple {
+    background: url("/img/couple-chair.jpg") no-repeat left top;
+    padding-left: 90px;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.cinema-content {
+    text-align: center;
+}
+.cinema-note li.road {
+    position: relative;
+    padding-left: 40px;
+}
+.cinema-note li.road:before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    background: #c6c6c6;
+}
+
+
+///@at-root  ghế đôi
+.cinema-seat .small_25 table td {
+    width: calc(50% - 1px);
+    height: 46px!important;
+    line-height: 46px;
+    float: left;
+}
+.cinema-seat td.couple {
+    cursor: pointer;
+    background: #ededed url("/img/couple-chair.jpg") no-repeat center top;
+   
+    -webkit-transition: all .3s ease-in-out;
+}
+.cinema-seat table td {
+    min-width: 43px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: futurab;
+    font-weight: 400;
+    font-size: 11px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+///ghế đã chọn
+.cinema-note li.busy {
+    background: url("/img/picked-chair.jpg") no-repeat left -92px;
+    padding-left: 50px;
+}
+.cinema-note li {
+    display: inline-block;
+    line-height: 46px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #434343;
+    margin: 0 7px;
+}
+//thanh toán
+.cinema-btn {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 30px 0;
+    text-align: center;
+}

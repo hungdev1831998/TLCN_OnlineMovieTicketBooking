@@ -46,10 +46,11 @@ class Header extends React.Component {
                                     <div>
                                         <ul className="nav navbar-nav navbar-left">
                                             <li>
-                                                <Link to="/"><img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} /> </Link>
+                                                {/* <Link to="/"><img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} /> </Link> */}
+                                                <img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} />&nbsp;&nbsp;&nbsp;&nbsp;
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> 
                                     <div className="navbar-brand textcenter" href="#myPage">Tuấn Hưng Booking Ticket Movie</div>
 
                                     <div>
