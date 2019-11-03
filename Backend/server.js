@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 server.use(cors());
-server.use(express.static('../myweb-ticket-booking-movie/public/img/'));
+server.use(express.static('./uploads'));
 server.set('view engine', 'ejs');
 
 
