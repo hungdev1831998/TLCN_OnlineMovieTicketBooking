@@ -4,8 +4,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";	
 import {Route,Switch} from 'react-router-dom';	
 import ContentWeb from './components/contentweb/contentweb';
-import BookTicket from './components/bookticket/bookticket';
-import Datve from './components/BookSeat/BookSeat';	
+import BookSeat from './components/BookSeat/BookSeat';
 class RouterWeb extends React.Component {	
 
     render() {	
@@ -16,8 +15,7 @@ class RouterWeb extends React.Component {
                 <Route exact path="/reset" component={Login} />
                 <Route exact path='/register' component={Register} />
                 <Route exact path="/resetRegister" component={Register} />	
-                <Route exact path="/bookticket" component={BookTicket} />	
-                <Route exact path="/bookseat" component={Datve}/>
+                <Route path="/bookseat" component={BookSeat}/>
             </Switch>	
 
         );	

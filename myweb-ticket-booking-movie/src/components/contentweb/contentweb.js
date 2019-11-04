@@ -1,5 +1,6 @@
 import React from 'react';
 import "./contentweb.scss";
+import { Link } from 'react-router-dom';
 import Header from "../header/header";
 import axios from "axios";
 class ContentWeb extends React.Component {
@@ -9,6 +10,7 @@ class ContentWeb extends React.Component {
         this.state= {
             films: []
         };
+        this.addTenFilmLocalStorage = this.addTenFilmLocalStorage.bind(this);
     }
 
     UNSAFE_componentWillMount() {
@@ -18,11 +20,16 @@ class ContentWeb extends React.Component {
         });
     }
 
+    addTenFilmLocalStorage = (tenfilm) => {
+        localStorage.setItem("TenFilm", JSON.stringify(tenfilm));
+    }
+
     setStateFilms = (data) => {
         this.setState({films: data});
     }
 
     render() {
+
         return (
             <div>
                 <header>
@@ -59,8 +66,8 @@ class ContentWeb extends React.Component {
                             </a>
                         </div>
 
-                        {/* Container (Bookticket Section) */}
-                        <div id="bookticket" className="bg-1">
+                        {/* Container (bookseat Section) */}
+                        <div id="bookseat" className="bg-1">
                             <div className="container">
                                 <h3 className="text-center">Phim đang hot</h3>
                                 <p className="text-center"><br /> Remember to book your tickets!</p>
@@ -70,72 +77,42 @@ class ContentWeb extends React.Component {
                                             <div className="thumbnail" >
                                                 <img key={index} src={item.AnhBia} className="img-fluid" alt={item.TenFilm} style={{ width: 400, height: 300 }} />
                                                 <p><strong>{item.TenFilm}</strong></p>
-                                                <button className="btn" data-toggle="modal" data-target="#myModal">Đặt vé</button>&nbsp;
+                                                
+                                                <button className="btn" ><Link to={{pathname:"/bookseat", film: item}}>Đặt vé </Link></button>&nbsp;
                                                 <button className="btn" data-toggle="modal" data-target={"#" + (index + 100000)}>Chi tiết</button>
                                             </div>
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            {/* Modal */}
-                            <div className="modal fade" id="myModal" role="dialog">
-                                <div className="modal-dialog">
-                                    {/* Modal content*/}
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <button type="button" className="close" data-dismiss="modal">×</button>
-                                            <h4><span className="glyphicon glyphicon-lock" /> Tickets</h4>
-                                        </div>
-                                        <div className="modal-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label htmlFor="psw"><span className="glyphicon glyphicon-shopping-cart" /> Tickets, $23 per person</label>
-                                                    <input type="number" className="form-control" id="psw" placeholder="How many?" />
-                                                </div>
-                                                <div className="form-group">
-                                                    <label htmlFor="usrname"><span className="glyphicon glyphicon-user" /> Send To</label>
-                                                    <input type="text" className="form-control" id="usrname" placeholder="Enter email" />
-                                                </div>
-                                                <button type="submit" className="btn btn-block">Pay
-                                                    <span className="glyphicon glyphicon-ok" />
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal">
-                                                <span className="glyphicon glyphicon-remove" /> Cancel
-                                            </button>
-                                            <a href="/">help?</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             {/*Modal Chi tiết*/}
                             {this.state.films.map((item, index) => 
-                                    <div className="modal fade" id={index + 100000} role="dialog" key={index + 1000}>
-                                     <div className="modal-dialog" >
-                                         {/* Modal content*/}
-                                         <div className="modal-content" >
-                                             <div className="modal-header" >
-                                                 <button type="button" className="close" data-dismiss="modal" >×</button>
-                                                 <h4><span className="glyphicon glyphicon-lock" /> Details Films</h4>
-                                             </div>
-                                             <div className="modal-body" >
-                                                 <form >
-                                                     <div className="form-group" >
-                                                         <label htmlFor="" ><span className="glyphicon glyphicon-user" /> Tên phim: {item.TenFilm}</label><br /><br />
-                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Đạo diễn: {item.DaoDien}</label><br /><br />
-                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Nước sản xuất: {item.TenNuocSX}</label><br /><br />
-                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tóm tắt: </label>
-                                                         <p className="text-center">{item.TomTat}</p><br />
-                                                         <div className="text-center"><button className="btn" data-toggle="modal" data-target="#myModal">Đặt vé</button></div>
-                                                     </div>
-                                                 </form>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>   
+                                <div className="modal fade" id={index + 100000} role="dialog" key={index + 1000}>
+                                    <div className="modal-dialog" >
+                                        {/* Modal content*/}
+                                        <div className="modal-content" >
+                                            <div className="modal-header" >
+                                                <button type="button" className="close" data-dismiss="modal" >×</button>
+                                                <h4><span className="glyphicon glyphicon-lock" /> Details Films</h4>
+                                            </div>
+                                            <div className="modal-body" >
+                                                <form >
+                                                    <div className="form-group" >
+                                                        <label htmlFor="" ><span className="glyphicon glyphicon-user" /> Tên phim: {item.TenFilm}</label><br /><br />
+                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Đạo diễn: {item.DaoDien}</label><br /><br />
+                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Nước sản xuất: {item.TenNuocSX}</label><br /><br />
+                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tóm tắt: </label>
+                                                        <p className="text-center">{item.TomTat}</p><br />
+                                                        <div className="text-center">
+                                                            <button className="btn" ><Link  to={{pathname:"/bookseat", film: item, reload: "abc"}}>Đặt vé </Link></button>&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
                             )}
                         </div>
                         {/* Container (Contact Section) */}

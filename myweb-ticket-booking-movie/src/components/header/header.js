@@ -46,7 +46,6 @@ class Header extends React.Component {
                                     <div>
                                         <ul className="nav navbar-nav navbar-left">
                                             <li>
-                                                {/* <Link to="/"><img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} /> </Link> */}
                                                 <img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} />&nbsp;&nbsp;&nbsp;&nbsp;
                                             </li>
                                         </ul>
@@ -66,19 +65,12 @@ class Header extends React.Component {
                                             }
                                         </ul>
                                     </div>
-
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#"><span className="glyphicon glyphicon-search" /></Link></li>
                                     </ul>
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#contact">CONTACT</Link></li>
-
                                     </ul>
-
-                                    <ul className="nav navbar-nav navbar-right">
-                                        <li><a href="/#bookticket">BOOK TICKET</a></li>
-                                    </ul>
-
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/">HOME</Link></li>
                                     </ul>
