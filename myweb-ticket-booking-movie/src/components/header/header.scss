@@ -1,6 +1,6 @@
 body {
   font: 400 15px/1.8 Lato, sans-serif;
-  background:	#FFFFF0
+  background:	#FFFFF0;
 }
 h3,
 h4 {
@@ -67,18 +67,26 @@ h4 {
 }
 .btn {
   padding: 10px 20px;
-  background-color: #333;
-  color: #f1f1f1;
+  // background-color: #333;
+  // color: #f1f1f1;
   border-radius: 0;
   transition: 0.2s;
 }
 .btn-detail {
-  padding: 10px 20px;
+  // padding: 10px 20px;
   background-color: #333;
   color: #f1f1f1;
-  border-radius: 0;
-  transition: 0.2s;
-  margin-left: 160px;
+  // border-radius: 0;
+  // transition: 0.2s;
+  // margin-left: 160px;
+}
+.btn-bookticket{
+  background-color: #333;
+  color: #f1f1f1;
+}
+.btn-dropdown{
+  background-color: #000000;
+  color: #fff;
 }
 .btn:hover,
 .btn:focus {
@@ -123,7 +131,6 @@ h4,
 }
 .navbar-nav li a:hover {
   color: #fff !important;
-  
 }
 
 .navbar-navcenter {

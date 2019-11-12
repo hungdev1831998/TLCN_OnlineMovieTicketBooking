@@ -78,8 +78,8 @@ class ContentWeb extends React.Component {
                                                 <img key={index} src={item.AnhBia} className="img-fluid" alt={item.TenFilm} style={{ width: 400, height: 300 }} />
                                                 <p><strong>{item.TenFilm}</strong></p>
                                                 
-                                                <button className="btn" ><Link to={{pathname:"/bookseat", film: item}}>Đặt vé </Link></button>&nbsp;
-                                                <button className="btn" data-toggle="modal" data-target={"#" + (index + 100000)}>Chi tiết</button>
+                                                <button className="btn btn-bookticket" ><Link to={{pathname:"/bookseat", film: item}}>Đặt vé </Link></button>&nbsp;
+                                                <button className="btn btn-detail" data-toggle="modal" data-target={"#" + (index + 100000)}>Chi tiết</button>
                                             </div>
                                         </div>
                                     )}

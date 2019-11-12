@@ -345,12 +345,13 @@ class BookSeat extends React.Component {
                 <li className="busy">Ghế đã chọn</li>
                 <li className="road">Lối đi</li>
               </ul>
-              <div className="cinema-btn">
+              
+            </div>
+            <div className="cinema-btn">
                 <div className="text-center">
-                  <button className="btn">Đặt vé và thanh toán</button>
+                  <button className="btn btn-primary">Đặt vé và thanh toán</button>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

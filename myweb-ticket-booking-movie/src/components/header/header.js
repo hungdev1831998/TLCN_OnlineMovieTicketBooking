@@ -5,7 +5,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state= {
+        this.state = {
             usrname: ""
         };
         this.onLogout = this.onLogout.bind(this);
@@ -14,18 +14,18 @@ class Header extends React.Component {
     onLogout = (e) => {
         e.preventDefault();
         localStorage.removeItem("user");
-        this.setState({usrname:null});
+        this.setState({ usrname: null });
     }
     UNSAFE_componentWillMount() {
         this.isLocalStorage();
     }
 
     isLocalStorage = () => {
-        if(JSON.parse(localStorage.getItem('user')) != null) {
-            var username = JSON.parse(localStorage.getItem('user'))["username"] ? 
-            JSON.parse(localStorage.getItem('user'))["username"] : null;
+        if (JSON.parse(localStorage.getItem('user')) != null) {
+            var username = JSON.parse(localStorage.getItem('user'))["username"] ?
+                JSON.parse(localStorage.getItem('user'))["username"] : null;
         }
-        this.setState({usrname: username});
+        this.setState({ usrname: username });
     }
 
     render() {
@@ -49,25 +49,43 @@ class Header extends React.Component {
                                                 <img src="img/logoheader.jpg" className="img-fluid" alt="logoheader" style={{ width: 150, height: 40 }} />&nbsp;&nbsp;&nbsp;&nbsp;
                                             </li>
                                         </ul>
-                                    </div> 
+                                    </div>
                                     <div className="navbar-brand textcenter" href="#myPage">Tuấn Hưng Booking Ticket Movie</div>
 
-                                    <div>
-                                        <ul className="nav navbar-nav navbar-right">
-                                            { !(this.state.usrname) ? 
-                                                <li>
-                                                    <Link to="/login">LOGIN</Link>
-                                                </li>
-                                                :
-                                                <li>
-                                                    <Link to="/"><strong>{this.state.usrname}</strong> <a onClick={this.onLogout} href="/">    LOGOUT</a></Link>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#"><span className="glyphicon glyphicon-search" /></Link></li>
                                     </ul>
+
+                                    <div>
+                                        <ul className="nav navbar-navcenter navbar-right">
+                                            {!(this.state.usrname) ?
+                                                <ul className="nav navbar-nav navbar-right">
+                                                    <li>
+                                                        <Link to="/login">LOGIN</Link>
+                                                    </li>
+                                                </ul>
+                                                :
+                                                <div>
+                                                    <Link to="/">
+                                                        <div className="btn-group pull-right">
+
+                                                            <button type="button" className="btn btn-dropdown dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <strong>{this.state.usrname}</strong> </button>
+
+                                                            <div className="dropdown-menu dropdown-menu-right">
+                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/infoUser", reload: "" }}>Thông tin người dùng</Link></button>
+                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/", reload: "" }}>Vé đã đặt</Link></button>
+                                                                <button className="dropdown-item" type="button"><a onClick={this.onLogout} href="/"> LOGOUT</a></button>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* <strong>{this.state.usrname}</strong> <a onClick={this.onLogout} href="/">    LOGOUT</a></Link> */}
+                                                    </Link>
+                                                </div>
+                                            }
+                                        </ul>
+                                    </div>
+
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#contact">CONTACT</Link></li>
                                     </ul>
@@ -76,7 +94,7 @@ class Header extends React.Component {
                                     </ul>
                                 </div>
                             </div>
-                        </nav>                     
+                        </nav>
                     </div>
                 </header>
             </div>
