@@ -3,6 +3,7 @@ import { NavLink, Route, Redirect } from 'react-router-dom';
 import axios from "axios";
 import './Login.scss';
 import Register from './../Register/Register';
+import Header from '../header/header';
 
 class Login extends React.Component {
     constructor(props) {
@@ -76,40 +77,43 @@ class Login extends React.Component {
     render() {
         return (
             !this.state.submit ? (
-                <div className="auth-wrapper">
-                    <div className="auth-content">
-                        <div className="auth-bg">
-                            <span className="r" />
-                            <span className="r s" />
-                            <span className="r s" />
-                            <span className="r" />
-                        </div>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="card">
-                                <div className="card-body text-center">
-                                    <div className="mb-4">
-                                        <i className="feather icon-unlock auth-icon" />
-                                    </div>
-                                    <h3 className="mb-4">Login</h3>
-                                    <div className="input-group mb-3">
-                                        <input type="email" required className="form-control" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} name="email" />
-                                    </div>
-                                    <div className="input-group mb-4">
-                                        <input type="password" className="form-control" placeholder="password" required value={this.state.password} onChange={this.onChangePassword} name="password" />
-                                    </div>
-                                    <button className="btn btn-primary shadow-2 mb-4" type="submit ">Login</button>
-                                    <p className="mb-2 text-muted">Forgot password? <NavLink to="/reset" onClick={this.onResetForm}>Reset</NavLink></p>
-                                    <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/register">Register</NavLink></p>
-                                    <div className="main-route-place">
-                                        <Route exact path="/register" component={Register} />
-                                    </div>
-                                    
-                                </div>
+                <div>
+                    <Header />
+                    <div className="auth-wrapper">
+                        <div className="auth-content">
+                            <div className="auth-bg">
+                                <span className="r" />
+                                <span className="r s" />
+                                <span className="r s" />
+                                <span className="r" />
                             </div>
-                        </form>
-                        
+                            <form onSubmit={this.onSubmit}>
+                                <div className="card">
+                                    <div className="card-body text-center">
+                                        <div className="mb-4">
+                                            <i className="feather icon-unlock auth-icon" />
+                                        </div>
+                                        <h3 className="mb-4">Login</h3>
+                                        <div className="input-group mb-3">
+                                            <input type="email" required className="form-control" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail} name="email" />
+                                        </div>
+                                        <div className="input-group mb-4">
+                                            <input type="password" className="form-control" placeholder="password" required value={this.state.password} onChange={this.onChangePassword} name="password" />
+                                        </div>
+                                        <button className="btn btn-primary shadow-2 mb-4" type="submit ">Login</button>
+                                        <p className="mb-2 text-muted">Forgot password? <NavLink to="/reset" onClick={this.onResetForm}>Reset</NavLink></p>
+                                        <p className="mb-0 text-muted">Don’t have an account? <NavLink to="/register">Register</NavLink></p>
+                                        <div className="main-route-place">
+                                            <Route exact path="/register" component={Register} />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
             ) : ( 
                 <Redirect to={{ pathname: "/", state: { from: "/login" } }} />
             )

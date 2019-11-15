@@ -1,32 +1,111 @@
 import React from 'react';
 import "./BookSeat.scss";
 import Header from '../header/header';
+import axios from "axios";
+
+var list = [{}];
+var GioChieu = [];
 class BookSeat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      TenFilm: null
+      TenFilm: null,
+      LichChieu: [{
+        NgayChieu: null,
+        GioChieu: []
+      }],
+      NgayChieu: null
     }
+    this.renderChonNgay = this.renderChonNgay.bind(this);
   }
-
-
 
   UNSAFE_componentWillMount() {
     if(this.props.location.film) {
-      localStorage.setItem("Film",JSON.stringify(this.props.location.film));
+      sessionStorage.setItem("Film",JSON.stringify(this.props.location.film));
       window.location.reload();
     }
     this.isLocalStorage();
   }
   
   isLocalStorage = () => {
-    if(JSON.parse(localStorage.getItem('Film')) != null) {
-        var tenfilm = JSON.parse(localStorage.getItem('Film'))["TenFilm"] ? 
-        JSON.parse(localStorage.getItem('Film'))["TenFilm"] : null;
+    if(JSON.parse(sessionStorage.getItem('Film')) != null) {
+        var tenfilm = JSON.parse(sessionStorage.getItem('Film'))["TenFilm"] ? 
+        JSON.parse(sessionStorage.getItem('Film'))["TenFilm"] : null;
     }
     this.setState({TenFilm: tenfilm});
+    
   }
 
+  componentDidMount() {
+    this.getFilminLichChieu();
+  }
+  getFilminLichChieu = () => {
+    var tenfilm = {TenFilm: this.state.TenFilm};
+    axios.post('http://localhost:3001/lichchieu/getlichbytenfilm', tenfilm)
+        .then((res) => {
+          if(res.data.length !== 0) {
+            for(const lc in res.data) {
+              var lichchieu = (res.data[lc]["ThoiGianChieu"]).split("T");
+              var i = 0;
+              for(const n in list) {
+                if(lichchieu[0] !== list[n].NgayChieu) {
+                  i++;
+                }
+              }
+              if(i === list.length) {
+                list.push({NgayChieu: lichchieu[0]});
+              }
+            }
+            for(const n in list) {
+              var a = [];
+              for(const lc1 in res.data) {
+                var lichchieu1 = (res.data[lc1]["ThoiGianChieu"]).split("T");
+                if(lichchieu1[0] === list[n].NgayChieu) {
+                  a.push(lichchieu1[1]);
+                }
+              }
+              list[n]["GioChieu"] = a;
+            }
+            list.splice(0, 1);
+            this.setState({LichChieu: list});
+          }
+          console.log(this.state.LichChieu);
+        });
+  }
+
+  HandleClickNgay = (ngaychieu) => {
+    for(const i in this.state.LichChieu) {
+      if(this.state.LichChieu[i].NgayChieu === ngaychieu) {
+        GioChieu = this.state.LichChieu[i].GioChieu;
+        this.setState({NgayChieu: ngaychieu});
+      }
+    }
+    console.log(GioChieu);
+  }
+
+  renderChonNgay = () => {
+    return this.state.LichChieu.map((item, index) => {
+      return (
+        <button 
+          className="dropdown-item" 
+          onClick={this.HandleClickNgay.bind(this, item.NgayChieu)} key={index}
+        > 
+          {item.NgayChieu} 
+        </button>
+      )
+    });
+  }
+  HandleClickGio = (giochieu) => {
+    sessionStorage.setItem("LichChieu",JSON.stringify(this.state.NgayChieu + "T" + giochieu));
+  }
+  renderChonGioChieu = () => {
+    console.log(GioChieu);
+    return GioChieu.map((item, index) => {
+      return (
+        <button className="dropdown-item" key={index} onClick={this.HandleClickGio.bind(this, item)}>{item} </button>
+      );
+    });
+  }
 
   render() {
     return (
@@ -36,28 +115,20 @@ class BookSeat extends React.Component {
           <div className="container">
             <h2 style={{color: 'blue'}}>Phim: {this.state.TenFilm}</h2>
             <div className="btn-group" style={{ marginTop: '8px' }}>
-                <div className="dropdown">
-                    <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        CHỌN NGÀY</button>&nbsp;
+              <div className="dropdown">
+                <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+                  CHỌN NGÀY</button>&nbsp;
                 <div className="dropdown-menu">
-                        <a className="dropdown-item" href="/">HÔM NAY: 2/11/2019</a>
-                        <a className="dropdown-item" href="/">CHỦ NHẬT: 3/11/2019</a>
-                        <a className="dropdown-item" href="/">THỨ HAI: 4/11/2019</a>
-                        <div className="dropdown-divider" />
-                        <a className="dropdown-item" href="/">Another link</a>
-                    </div>
+                  {this.renderChonNgay()}
                 </div>
+              </div>
             </div>
             <div className="btn-group" style={{ marginTop: '8px' }}>
                 <div className="dropdown">
-                  <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
                     CHỌN SUẤT CHIẾU</button>&nbsp;
                   <div className="dropdown-menu">
-                    <a className="dropdown-item" href="/">11:00AM</a>
-                    <a className="dropdown-item" href="/">15:00PM</a>
-                    <a className="dropdown-item" href="/">19:00PM</a>
-                    <div className="dropdown-divider" />
-                    <a className="dropdown-item" href="/">Another link</a>
+                    {this.renderChonGioChieu()}
                   </div>
                 </div>
             </div>

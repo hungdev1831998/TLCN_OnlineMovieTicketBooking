@@ -66,13 +66,13 @@ class Header extends React.Component {
                                         </ul>
                                     </div>
                                     <ul className="nav navbar-nav navbar-right">
-                                        <li><Link to="/#"><span className="glyphicon glyphicon-search" /></Link></li>
+                                        <li><Link to="/"><span className="glyphicon glyphicon-search" /></Link></li>
                                     </ul>
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#contact">CONTACT</Link></li>
                                     </ul>
                                     <ul className="nav navbar-nav navbar-right">
-                                        <li><Link to="/">HOME</Link></li>
+                                        <li><a href="/" >HOME</a></li>
                                     </ul>
                                 </div>
                             </div>
