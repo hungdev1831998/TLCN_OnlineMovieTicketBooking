@@ -93,19 +93,19 @@ class ContentWeb extends React.Component {
                                         {/* Modal content*/}
                                         <div className="modal-content" >
                                             <div className="modal-header" >
-                                                <button type="button" className="close" data-dismiss="modal" >×</button>
                                                 <h4><span className="glyphicon glyphicon-lock" /> Details Films</h4>
+                                                <button type="button" className="close" data-dismiss="modal" >×</button>
                                             </div>
                                             <div className="modal-body" >
                                                 <form >
                                                     <div className="form-group" >
-                                                        <label htmlFor="" ><span className="glyphicon glyphicon-user" /> Tên phim: {item.TenFilm}</label><br /><br />
-                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Đạo diễn: {item.DaoDien}</label><br /><br />
-                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Nước sản xuất: {item.TenNuocSX}</label><br /><br />
+                                                        <label htmlFor="" ><span className="glyphicon glyphicon-user" /> Tên phim: {item.TenFilm}</label><br />
+                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Đạo diễn: {item.DaoDien}</label><br />
+                                                        <label htmlFor=""><span className="glyphicon glyphicon-user" /> Nước sản xuất: {item.TenNuocSX}</label><br />
                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tóm tắt: </label>
                                                         <p className="text-center">{item.TomTat}</p><br />
                                                         <div className="text-center">
-                                                            <button className="btn" ><Link  to={{pathname:"/bookseat", film: item, reload: "abc"}}>Đặt vé </Link></button>&nbsp;
+                                                            <button className="btn btn-bookticketdetail" ><Link  to={{pathname:"/bookseat", film: item, reload: "abc"}}>Đặt vé </Link></button>&nbsp;
                                                         </div>
                                                     </div>
                                                 </form>
@@ -139,7 +139,7 @@ class ContentWeb extends React.Component {
                                     <br />
                                     <div className="row">
                                         <div className="col-md-12 form-group">
-                                            <button className="btn pull-right" type="submit">Send</button>
+                                            <button className="btn btn-send pull-right" type="submit">Send</button>
                                         </div>
                                     </div>
                                 </div>

@@ -35,6 +35,11 @@ h4 {
 .carousel-caption h3 {
   color: #fff !important;
 }
+// // image_item_film
+// .img-fluid{
+//   object-fit: cover;
+//   object-position: center center;
+// }
 @media (max-width: 600px) {
   .carousel-caption {
     display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
@@ -82,6 +87,19 @@ h4 {
 //   transition: 0.2s;
 //   margin-left: 160px;
 // }
+
+.btn-bookticketdetail {
+  color: #f1f1f1;
+  background-color:	#333;
+}
+.btn-bookticketdetail a{
+  color: 	#007bff;
+
+}
+.btn-send {
+  color: #f1f1f1;
+  background-color: #333;
+}
 .btn:hover,
 .btn:focus {   
   border: 1px solid #333;

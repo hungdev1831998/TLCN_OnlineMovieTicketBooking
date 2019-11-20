@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import axios from "axios";
 import './Register.scss';
+import Header from '../header/header';
 
 class Register extends React.Component {
     constructor(props) {
@@ -80,42 +81,46 @@ class Register extends React.Component {
     render () {
         return(
             !this.state.submit ? (
-                <div className="auth-wrapper">
-                    <div className="auth-content">
-                        <div className="auth-bg">
-                            <span className="r"/>
-                            <span className="r s"/>
-                            <span className="r s"/>
-                            <span className="r"/>
-                        </div>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="card">
-                                <div className="card-body text-center">
-                                    <div className="mb-4">
-                                        <i className="feather icon-user-plus auth-icon"/>
-                                    </div>
-                                    <h3 className="mb-4">Sign up</h3>
-                                    <div className="input-group mb-3">
-                                        <input type="email" className="form-control" placeholder="Email" required value={this.state.email} onChange={this.onChangeEmail} name="email"/>
-                                    </div>
-                                    <div className="input-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Username" required value={this.state.username} onChange={this.onChangeUsername} name="username"/>
-                                    </div>
-                                    <div className="input-group mb-4">
-                                        <input type="password" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChangePassword} name="password"/>
-                                    </div>
-                                    <div className="input-group mb-4">
-                                        <input type="password" className="form-control" placeholder="Confirm password" required value={this.state.passwordConf} onChange={this.onChangePasswordConf} name="passwordConf"/>
-                                    </div>
-                                    <button className="btn btn-info shadow-2 mb-4" type="submit">Sign up</button>
-                                    <p className="mb-2 text-muted">Input again? <NavLink to="/resetRegister" onClick={this.onResetForm}>Reset</NavLink></p>
-                                    <p className="mb-0 text-muted">Allready have an account? <NavLink to="/login">Login</NavLink></p>
-                                </div>
+                <div>
+                    <Header />
+                    <div className="auth-wrapper">
+                        <div className="auth-content">
+                            <div className="auth-bg">
+                                <span className="r"/>
+                                <span className="r s"/>
+                                <span className="r s"/>
+                                <span className="r"/>
                             </div>
-                        </form>
-                        
+                            <form onSubmit={this.onSubmit}>
+                                <div className="card">
+                                    <div className="card-body text-center">
+                                        <div className="mb-4">
+                                            <i className="feather icon-user-plus auth-icon"/>
+                                        </div>
+                                        <h3 className="mb-4">Sign up</h3>
+                                        <div className="input-group mb-3">
+                                            <input type="email" className="form-control" placeholder="Email" required value={this.state.email} onChange={this.onChangeEmail} name="email"/>
+                                        </div>
+                                        <div className="input-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Username" required value={this.state.username} onChange={this.onChangeUsername} name="username"/>
+                                        </div>
+                                        <div className="input-group mb-4">
+                                            <input type="password" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChangePassword} name="password"/>
+                                        </div>
+                                        <div className="input-group mb-4">
+                                            <input type="password" className="form-control" placeholder="Confirm password" required value={this.state.passwordConf} onChange={this.onChangePasswordConf} name="passwordConf"/>
+                                        </div>
+                                        <button className="btn btn-info shadow-2 mb-4" type="submit">Sign up</button>
+                                        <p className="mb-2 text-muted">Input again? <NavLink to="/resetRegister" onClick={this.onResetForm}>Reset</NavLink></p>
+                                        <p className="mb-0 text-muted">Allready have an account? <NavLink to="/login">Login</NavLink></p>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
                     </div>
                 </div>
+
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: "/register" } }} />
             ) 

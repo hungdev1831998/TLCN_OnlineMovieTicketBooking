@@ -6,6 +6,7 @@ import {Route,Switch} from 'react-router-dom';
 import ContentWeb from './components/contentweb/contentweb';
 import BookSeat from './components/BookSeat/BookSeat';
 import InfoUser from './components/InfoUser/InfoUser';
+import Ticket from './components/Ticket/Ticket';
 class RouterWeb extends React.Component {	
 
     render() {	
@@ -18,6 +19,7 @@ class RouterWeb extends React.Component {
                 <Route exact path="/resetRegister" component={Register} />	
                 <Route path="/bookseat" component={BookSeat}/>
                 <Route path="/infoUser" component={InfoUser}/>
+                <Route path="/ticket" component={Ticket}/>
             </Switch>	
 
         );	

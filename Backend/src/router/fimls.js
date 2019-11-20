@@ -30,8 +30,6 @@ router.get('/', function(req, res) {
 });
 
 router.get('/getfilms', (req, res)  => {
-    // const dateOnly = new DateOnly();
-    // console.log(JSON.stringify(dateOnly));
     Film.find({$and: [{NgayChieu:{$lte:Date.now()}}, {NgayKetThuc:{$gte:Date.now()}}]}, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
         res.json(films);
     }).catch((err) => {

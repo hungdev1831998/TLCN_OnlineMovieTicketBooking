@@ -52,9 +52,9 @@ class Header extends React.Component {
                                     </div>
                                     <div className="navbar-brand textcenter" href="#myPage">Tuấn Hưng Booking Ticket Movie</div>
 
-                                    <ul className="nav navbar-nav navbar-right">
+                                    {/* <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#"><span className="glyphicon glyphicon-search" /></Link></li>
-                                    </ul>
+                                    </ul> */}
 
                                     <div>
                                         <ul className="nav navbar-navcenter navbar-right">
@@ -74,7 +74,7 @@ class Header extends React.Component {
 
                                                             <div className="dropdown-menu dropdown-menu-right">
                                                                 <button className="dropdown-item" type="button"><Link to={{ pathname: "/infoUser", reload: "" }}>Thông tin người dùng</Link></button>
-                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/", reload: "" }}>Vé đã đặt</Link></button>
+                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/ticket", reload: "" }}>Vé đã đặt</Link></button>
                                                                 <button className="dropdown-item" type="button"><a onClick={this.onLogout} href="/"> LOGOUT</a></button>
                                                             </div>
                                                         </div>
@@ -85,12 +85,14 @@ class Header extends React.Component {
                                             }
                                         </ul>
                                     </div>
-
+                                    <ul className="nav navbar-nav navbar-right">
+                                        <li><Link to="/"><span className="glyphicon glyphicon-search" /></Link></li>
+                                    </ul>
                                     <ul className="nav navbar-nav navbar-right">
                                         <li><Link to="/#contact">CONTACT</Link></li>
                                     </ul>
                                     <ul className="nav navbar-nav navbar-right">
-                                        <li><Link to="/">HOME</Link></li>
+                                        <li><a href="/" >HOME</a></li>
                                     </ul>
                                 </div>
                             </div>
