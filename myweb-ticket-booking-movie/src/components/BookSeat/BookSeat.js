@@ -26,75 +26,75 @@ class BookSeat extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    if(this.props.location.film) {
-      sessionStorage.setItem("Film",JSON.stringify(this.props.location.film));
+    if (this.props.location.film) {
+      sessionStorage.setItem("Film", JSON.stringify(this.props.location.film));
       window.location.reload();
     }
     this.isLocalStorage();
   }
-  
+
   isLocalStorage = () => {
-    if(JSON.parse(sessionStorage.getItem('Film')) != null) {
-        var tenfilm = JSON.parse(sessionStorage.getItem('Film'))["TenFilm"] ? 
+    if (JSON.parse(sessionStorage.getItem('Film')) != null) {
+      var tenfilm = JSON.parse(sessionStorage.getItem('Film'))["TenFilm"] ?
         JSON.parse(sessionStorage.getItem('Film'))["TenFilm"] : null;
     }
-    this.setState({TenFilm: tenfilm});
-    
+    this.setState({ TenFilm: tenfilm });
+
   }
   componentDidMount() {
     this.getFilminLichChieu();
   }
 
   getFilminLichChieu = () => {
-    var tenfilm = {TenFilm: this.state.TenFilm};
-    console.log(this.state.TenFilm);    
+    var tenfilm = { TenFilm: this.state.TenFilm };
+    console.log(this.state.TenFilm);
     axios.post('http://localhost:3001/lichchieu/getlichbytenfilm', tenfilm)
-        .then((res) => {
-          if(res.data.length !== 0) {
-            for(const lc in res.data) {
-              var lichchieu = (res.data[lc]["ThoiGianChieu"]).split("T");
-              var i = 0;
-              for(const n in list) {
-                if(lichchieu[0] !== list[n].NgayChieu) {
-                  i++;
-                }
-              }
-              if(i === list.length) {
-                list.push({NgayChieu: lichchieu[0]});
+      .then((res) => {
+        if (res.data.length !== 0) {
+          for (const lc in res.data) {
+            var lichchieu = (res.data[lc]["ThoiGianChieu"]).split("T");
+            var i = 0;
+            for (const n in list) {
+              if (lichchieu[0] !== list[n].NgayChieu) {
+                i++;
               }
             }
-            for(const n in list) {
-              var a = [];
-              for(const lc1 in res.data) {
-                var lichchieu1 = (res.data[lc1]["ThoiGianChieu"]).split("T");
-                if(lichchieu1[0] === list[n].NgayChieu) {
-                  a.push(lichchieu1[1]);
-                }
-              }
-              list[n]["GioChieu"] = a;
+            if (i === list.length) {
+              list.push({ NgayChieu: lichchieu[0] });
             }
-            list.splice(0, 1);
-            this.setState({LichChieu: list});
           }
-        });
+          for (const n in list) {
+            var a = [];
+            for (const lc1 in res.data) {
+              var lichchieu1 = (res.data[lc1]["ThoiGianChieu"]).split("T");
+              if (lichchieu1[0] === list[n].NgayChieu) {
+                a.push(lichchieu1[1]);
+              }
+            }
+            list[n]["GioChieu"] = a;
+          }
+          list.splice(0, 1);
+          this.setState({ LichChieu: list });
+        }
+      });
   }
 
   getGhebyPhong = () => {
-    const tenphong = {TenPhong: this.state.TenPhong};
+    const tenphong = { TenPhong: this.state.TenPhong };
     axios.post('http://localhost:3001/ghe/getGhebyPhong', tenphong)
-        .then((res) => {
-          if(res.data) {
-            this.setState({Ghe: res.data});
-              
-          }
-        });
+      .then((res) => {
+        if (res.data) {
+          this.setState({ Ghe: res.data });
+
+        }
+      });
   }
 
   HandleClickNgay = (ngaychieu) => {
-    for(const i in this.state.LichChieu) {
-      if(this.state.LichChieu[i].NgayChieu === ngaychieu) {
+    for (const i in this.state.LichChieu) {
+      if (this.state.LichChieu[i].NgayChieu === ngaychieu) {
         GioChieu = this.state.LichChieu[i].GioChieu;
-        this.setState({NgayChieu: ngaychieu});
+        this.setState({ NgayChieu: ngaychieu });
       }
     }
   }
@@ -102,30 +102,30 @@ class BookSeat extends React.Component {
   renderChonNgay = () => {
     return this.state.LichChieu.map((item, index) => {
       return (
-        <button 
-          className="dropdown-item" 
+        <button
+          className="dropdown-item"
           onClick={this.HandleClickNgay.bind(this, item.NgayChieu)} key={index}
-        > 
-          {item.NgayChieu} 
+        >
+          {item.NgayChieu}
         </button>
       )
     });
   }
   HandleClickGio = (giochieu) => {
-    sessionStorage.setItem("LichChieu",JSON.stringify(this.state.NgayChieu + "T" + giochieu));
-    this.setState({GioChieu: giochieu});
+    sessionStorage.setItem("LichChieu", JSON.stringify(this.state.NgayChieu + "T" + giochieu));
+    this.setState({ GioChieu: giochieu });
     var lichchieu = {
       TenFilm: this.state.TenFilm,
       ThoiGianChieu: this.state.NgayChieu + "T" + giochieu
     }
 
     axios.post('http://localhost:3001/lichchieu/getphongbygiochieu', lichchieu)
-    .then((res) => {
-      if(res.data) {
-        this.setState({TenPhong: res.data[0]["TenPhong"]});
-        this.getGhebyPhong();
-      }
-    });
+      .then((res) => {
+        if (res.data) {
+          this.setState({ TenPhong: res.data[0]["TenPhong"] });
+          this.getGhebyPhong();
+        }
+      });
   }
   renderChonGioChieu = () => {
     return GioChieu.map((item, index) => {
@@ -138,68 +138,68 @@ class BookSeat extends React.Component {
   renderGhe = () => {
     var arr = [];
     this.state.Ghe.forEach((item, index) => {
-      if(arr.length === 0) {
-        arr.push(item["TenGhe"].slice(0,1));
-        
+      if (arr.length === 0) {
+        arr.push(item["TenGhe"].slice(0, 1));
+
       }
       var a = false;
       arr.map((ghe) => {
-        if(item["TenGhe"].slice(0,1) === ghe) {
+        if (item["TenGhe"].slice(0, 1) === ghe) {
           a = true;
         }
-      return null;
+        return null;
       })
-      if(a === false) {
-        arr.push(item["TenGhe"].slice(0,1));
+      if (a === false) {
+        arr.push(item["TenGhe"].slice(0, 1));
       }
     })
-      return arr.map((ghe, ind) => 
-        <tr key={ind}>
-          {
-            this.state.Ghe.map((item, index) => {
-              var status = 'single ';
-              if (item["TenGhe"].slice(0,1) === ghe) {
-                if(item["status"] === true) {
-                  status = 'busy';
-                } else {
-                  for(var i = 0; i < this.state.choosing.length; i++) {
-                    if(item["TenGhe"] === this.state.choosing[i]) {
-                      status += "choosing";
-                      break;
-                    }
+    return arr.map((ghe, ind) =>
+      <tr key={ind}>
+        {
+          this.state.Ghe.map((item, index) => {
+            var status = 'single ';
+            if (item["TenGhe"].slice(0, 1) === ghe) {
+              if (item["status"] === true) {
+                status = 'busy';
+              } else {
+                for (var i = 0; i < this.state.choosing.length; i++) {
+                  if (item["TenGhe"] === this.state.choosing[i]) {
+                    status += "choosing";
+                    break;
                   }
                 }
-                return (
-                  <td className={status} key={index} onClick={this.handleGheOnclick.bind(this, item["TenGhe"], status)}>{item["TenGhe"]}</td>
-                );
               }
-              return null;
-            })
-          }
-          <td className="road" colSpan={2}>{ghe}</td>
-        </tr>
-      );
+              return (
+                <td className={status} key={index} onClick={this.handleGheOnclick.bind(this, item["TenGhe"], status)}>{item["TenGhe"]}</td>
+              );
+            }
+            return null;
+          })
+        }
+        <td className="road" colSpan={2}>{ghe}</td>
+      </tr>
+    );
   }
 
 
   handleGheOnclick = (tenghe, status) => {
-    if(status === "single choosing") {
+    if (status === "single choosing") {
       stt.splice(stt.indexOf(tenghe), 1);
     } else {
-      if(status !== "busy") {
+      if (status !== "busy") {
         var exist = false;
-        for(var i = 0; i < stt.length; i++) {
-          if(stt[i] === tenghe) {
+        for (var i = 0; i < stt.length; i++) {
+          if (stt[i] === tenghe) {
             exist = true;
             break;
           }
         }
-        if(!exist) {
+        if (!exist) {
           stt.push(tenghe);
         }
       }
     }
-    this.setState({choosing: stt});
+    this.setState({ choosing: stt });
     console.log(this.state.choosing);
   }
 
@@ -209,7 +209,7 @@ class BookSeat extends React.Component {
         <Header />
         <div className="block-wrapper">
           <div className="container">
-            <h2 style={{color: 'blue'}}>Phim: {this.state.TenFilm}</h2>
+            <h2 style={{ color: 'blue' }}>Phim: {this.state.TenFilm}</h2>
             <div className="btn-group" style={{ marginTop: '8px' }}>
               <div className="dropdown">
                 <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
@@ -220,13 +220,13 @@ class BookSeat extends React.Component {
               </div>
             </div>
             <div className="btn-group" style={{ marginTop: '8px' }}>
-                <div className="dropdown">
-                  <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
-                    {this.state.GioChieu}</button>&nbsp;
+              <div className="dropdown">
+                <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+                  {this.state.GioChieu}</button>&nbsp;
                   <div className="dropdown-menu">
-                    {this.renderChonGioChieu()}
-                  </div>
+                  {this.renderChonGioChieu()}
                 </div>
+              </div>
             </div>
 
             <div className="cinema-wrap">
@@ -265,14 +265,52 @@ class BookSeat extends React.Component {
                 <li className="busy">Ghế đã chọn</li>
                 <li className="road">Lối đi</li>
               </ul>
-              
             </div>
-            <div className="cinema-btn">
+
+
+            {/* Container (thanh toán Section) */}
+            <div id="pay">
+              <div className="ticket-btn">
                 <div className="text-center">
-                  <button className="btn btn-primary">Đặt vé và thanh toán</button>
+                  <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
+                  <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Thanh toán</button>
                 </div>
               </div>
+              {/* Modal */}
+              <div className="modal fade" id="myModal" role="dialog">
+                <div className="modal-dialog">
+                  {/* Modal content*/}
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h4><span className="glyphicon glyphicon-lock" /> Thanh toán vé</h4>
+                      <button type="button" className="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div className="modal-body">
+                      <form role="form">
+                        <div className="form-group">
+                          <label htmlFor="psw"><span className="" /> Tên phim: </label><br />
+                          <label htmlFor="psw"><span className="" /> Thời gian chiếu: </label><br />
+                          <label htmlFor="psw"><span className="" /> Tên phòng chiếu: </label><br />
+                          <label htmlFor="psw"><span className="" /> Tên ghế: </label><br />
+                          <label htmlFor="psw"><span className="" /> Số tiền: </label>
+                        </div>
+
+                      </form>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                        Hủy <span className="glyphicon glyphicon-remove" />
+                      </button>
+                      <button type="submit" className="btn btn-success">Xác nhận
+                                <span className="glyphicon glyphicon-ok" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
