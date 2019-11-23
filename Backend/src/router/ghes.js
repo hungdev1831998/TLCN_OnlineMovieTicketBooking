@@ -9,8 +9,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose');
 
-require("../model/LichChieu");
-const LichChieu = mongoose.model("LichChieu");
+require("../model/Ghe");
+const Ghe = mongoose.model("Ghe");
 
 router.get('/', function (req, res) {
     var drinks = [
@@ -26,17 +26,16 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/addlichchieu', (req, res) => {
-    if (req.body.TenFilm && req.body.TenPhong && req.body.ThoiGianChieu) {
-        var newLich = {
-            TenFilm: req.body.TenFilm,
+router.post('/addghe', (req, res) => {
+    if (req.body.TenPhong && req.body.TenGhe) {
+        var newGhe = {
             TenPhong: req.body.TenPhong,
-            ThoiGianChieu: req.body.ThoiGianChieu,
+            TenGhe: req.body.TenGhe,
         };
-        var lichchieu = new LichChieu(newLich);
-        lichchieu.save().then(() => {
-            console.log("New schedule created!");
-            return res.json({ "mess": "New schedule created!" });
+        var ghe = new Ghe(newGhe);
+        ghe.save().then(() => {
+            console.log("Them ghe thanh cong!");
+            return res.json({ "mess": "Them ghe thanh cong!" });
         }).catch((err) => {
             if (err) {
                 throw err;
@@ -47,9 +46,9 @@ router.post('/addlichchieu', (req, res) => {
     }
 });
 
-router.post('/getlichbytenfilm', (req, res) => {
-    LichChieu.find({ $or: [{ 'TenFilm': req.body.TenFilm }] }).then((lichs) => {
-        return res.json(lichs);
+router.post('/getGhebyPhong', (req, res) => {
+    Ghe.find({ $or: [{ 'TenPhong': req.body.TenPhong }] }, 'TenGhe').then((ghes) => {
+        return res.json(ghes);
     }).catch((err) => {
         if (err) {
             throw err;
@@ -57,19 +56,9 @@ router.post('/getlichbytenfilm', (req, res) => {
     });
 });
 
-router.post('/getphongbygiochieu', (req, res) => {
-    LichChieu.find({ $and: [{ 'TenFilm': req.body.TenFilm }, {'ThoiGianChieu' : req.body.ThoiGianChieu}]}, 'TenPhong').then((phong) => {
-        return res.json(phong);
-    }).catch((err) => {
-        if(err) {
-            throw err;
-        }
-    });
-});
-
-router.get('/getlich', (req, res) => {
-    LichChieu.find().then((lichs) => {
-        return res.json(lichs);
+router.get('/getGhes', (req, res) => {
+    Ghe.find().then((ghes) => {
+        return res.json(ghes);
     }).catch((err) => {
         if (err) {
             throw err;

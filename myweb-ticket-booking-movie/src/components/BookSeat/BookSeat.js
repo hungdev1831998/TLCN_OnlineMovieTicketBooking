@@ -14,9 +14,13 @@ class BookSeat extends React.Component {
         NgayChieu: null,
         GioChieu: []
       }],
-      NgayChieu: null
+      NgayChieu: 'CHỌN NGÀY',
+      GioChieu: 'CHỌN SUẤT CHIẾU',
+      TenPhong: null,
+      Ghe: []
     }
     this.renderChonNgay = this.renderChonNgay.bind(this);
+    this.getGhebyPhong = this.getGhebyPhong.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -35,12 +39,13 @@ class BookSeat extends React.Component {
     this.setState({TenFilm: tenfilm});
     
   }
-
   componentDidMount() {
     this.getFilminLichChieu();
   }
+
   getFilminLichChieu = () => {
     var tenfilm = {TenFilm: this.state.TenFilm};
+    console.log(this.state.TenFilm);    
     axios.post('http://localhost:3001/lichchieu/getlichbytenfilm', tenfilm)
         .then((res) => {
           if(res.data.length !== 0) {
@@ -69,7 +74,17 @@ class BookSeat extends React.Component {
             list.splice(0, 1);
             this.setState({LichChieu: list});
           }
-          console.log(this.state.LichChieu);
+        });
+  }
+
+  getGhebyPhong = () => {
+    const tenphong = {TenPhong: this.state.TenPhong};
+    axios.post('http://localhost:3001/ghe/getGhebyPhong', tenphong)
+        .then((res) => {
+          if(res.data) {
+            this.setState({Ghe: res.data});
+              
+          }
         });
   }
 
@@ -80,7 +95,6 @@ class BookSeat extends React.Component {
         this.setState({NgayChieu: ngaychieu});
       }
     }
-    console.log(GioChieu);
   }
 
   renderChonNgay = () => {
@@ -97,14 +111,61 @@ class BookSeat extends React.Component {
   }
   HandleClickGio = (giochieu) => {
     sessionStorage.setItem("LichChieu",JSON.stringify(this.state.NgayChieu + "T" + giochieu));
+    this.setState({GioChieu: giochieu});
+    var lichchieu = {
+      TenFilm: this.state.TenFilm,
+      ThoiGianChieu: this.state.NgayChieu + "T" + giochieu
+    }
+
+    axios.post('http://localhost:3001/lichchieu/getphongbygiochieu', lichchieu)
+    .then((res) => {
+      if(res.data) {
+        this.setState({TenPhong: res.data[0]["TenPhong"]});
+        this.getGhebyPhong();
+      }
+    });
   }
   renderChonGioChieu = () => {
-    console.log(GioChieu);
     return GioChieu.map((item, index) => {
       return (
         <button className="dropdown-item" key={index} onClick={this.HandleClickGio.bind(this, item)}>{item} </button>
       );
     });
+  }
+
+  renderGhe = () => {
+    var arr = [];
+    this.state.Ghe.forEach((item, index) => {
+      if(arr.length === 0) {
+        arr.push(item["TenGhe"].slice(0,1));
+        
+      }
+      var a = false;
+      arr.map((ghe) => {
+        if(item["TenGhe"].slice(0,1) === ghe) {
+          a = true;
+        }
+      return null;
+      })
+      if(a === false) {
+        arr.push(item["TenGhe"].slice(0,1));
+      }
+    })
+      return arr.map((ghe, ind) => 
+        <tr key={ind}>
+          {
+            this.state.Ghe.map((item, index) => {
+              if (item["TenGhe"].slice(0,1) === ghe) {
+                return (
+                  <td className="single" key={index}>{item["TenGhe"]}</td>
+                );
+              }
+              return null;
+            })
+          }
+          <td className="road" colSpan={2}>{ghe}</td>
+        </tr>
+      );
   }
 
   render() {
@@ -117,7 +178,7 @@ class BookSeat extends React.Component {
             <div className="btn-group" style={{ marginTop: '8px' }}>
               <div className="dropdown">
                 <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
-                  CHỌN NGÀY</button>&nbsp;
+                  {this.state.NgayChieu}</button>&nbsp;
                 <div className="dropdown-menu">
                   {this.renderChonNgay()}
                 </div>
@@ -126,7 +187,7 @@ class BookSeat extends React.Component {
             <div className="btn-group" style={{ marginTop: '8px' }}>
                 <div className="dropdown">
                   <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
-                    CHỌN SUẤT CHIẾU</button>&nbsp;
+                    {this.state.GioChieu}</button>&nbsp;
                   <div className="dropdown-menu">
                     {this.renderChonGioChieu()}
                   </div>
@@ -139,25 +200,9 @@ class BookSeat extends React.Component {
                 <div className="tbl-wrap">
                   <table>
                     <tbody>
+                      {this.renderGhe()}
+                      
                       <tr>
-                        <td className="single  " data-seat={1302389812}>A12</td>
-                        <td className="single  " data-seat={1302389827}>A11</td>
-                        <td className="single  " data-seat={1302389842}>A10</td>
-                        <td className="single  " data-seat={1302389857}>A09</td>
-                        <td className="single  " data-seat={1302389871}>A08</td>
-                        <td className="single  " data-seat={1302389885}>A07</td>
-                        <td className="single  " data-seat={1302389898}>A06</td>
-                        <td className="single  " data-seat={1302389911}>A05</td>
-                        <td className="single  " data-seat={1302389925}>A04</td>
-                        <td className="single  " data-seat={1302389939}>A03</td>
-                        <td className="single  " data-seat={1302389953}>A02</td>
-                        <td className="single  " data-seat={1302389967}>A01</td>
-                        <td className="road" colSpan={2}>A</td>
-                        <td />
-                        <td />
-                      </tr>
-                      <tr>
-                        <td className="single  " data-seat={1302389813}>B12</td>
                         <td className="single  " data-seat={1302389828}>B11</td>
                         <td className="single  " data-seat={1302389843}>B10</td>
                         <td className="single  " data-seat={1302389858}>B09</td>
@@ -293,8 +338,6 @@ class BookSeat extends React.Component {
                         <td />
                       </tr>
                       <tr>
-                        <td className="single  " data-seat={1302389821}>K14</td>
-                        <td className="single  " data-seat={1302389836}>K13</td>
                         <td className="single  " data-seat={1302389851}>K12</td>
                         <td className="single  " data-seat={1302389866}>K11</td>
                         <td className="single  " data-seat={1302389880}>K10</td>
@@ -305,13 +348,12 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389948}>K05</td>
                         <td className="single  " data-seat={1302389962}>K04</td>
                         <td className="single  " data-seat={1302389976}>K03</td>
-                        <td className="road" colSpan={2}>K</td>
                         <td className="single  " data-seat={1302389997}>K02</td>
                         <td className="single  " data-seat={1302390002}>K01</td>
+                        <td className="road" colSpan={2}>K</td>
+
                       </tr>
                       <tr>
-                        <td className="single  " data-seat={1302389822}>L14</td>
-                        <td className="single  " data-seat={1302389837}>L13</td>
                         <td className="single  " data-seat={1302389852}>L12</td>
                         <td className="single  " data-seat={1302389867}>L11</td>
                         <td className="single  " data-seat={1302389881}>L10</td>
@@ -322,9 +364,10 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389949}>L05</td>
                         <td className="single  " data-seat={1302389963}>L04</td>
                         <td className="single  " data-seat={1302389977}>L03</td>
-                        <td className="road" colSpan={2}>L</td>
                         <td className="single  " data-seat={1302389998}>L02</td>
                         <td className="single  " data-seat={1302390003}>L01</td>
+                        <td className="road" colSpan={2}>L</td>
+
                       </tr>
                       <tr>
                         <td className="single  " data-seat={1302389823}>M14</td>
