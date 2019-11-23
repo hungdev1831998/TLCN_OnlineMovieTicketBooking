@@ -140,7 +140,7 @@ class BookSeat extends React.Component {
                   <table>
                     <tbody>
                       <tr>
-                        <td className="single  " data-seat={1302389812}>A12</td>
+                        <td className="single choosing  " data-seat={1302389812}>A12</td>
                         <td className="single  " data-seat={1302389827}>A11</td>
                         <td className="single  " data-seat={1302389842}>A10</td>
                         <td className="single  " data-seat={1302389857}>A09</td>
@@ -162,7 +162,7 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389843}>B10</td>
                         <td className="single  " data-seat={1302389858}>B09</td>
                         <td className="single  " data-seat={1302389872}>B08</td>
-                        <td className="single  " data-seat={1302389886}>B07</td>
+                        <td className="busy  " data-seat={1302389886}>B07</td>
                         <td className="single  " data-seat={1302389899}>B06</td>
                         <td className="single  " data-seat={1302389912}>B05</td>
                         <td className="single  " data-seat={1302389926}>B04</td>
@@ -193,14 +193,14 @@ class BookSeat extends React.Component {
                       <tr>
                         <td className="single  " data-seat={1302389815}>D12</td>
                         <td className="single  " data-seat={1302389830}>D11</td>
-                        <td className="single  " data-seat={1302389845}>D10</td>
-                        <td className="single  " data-seat={1302389860}>D09</td>
-                        <td className="single  " data-seat={1302389874}>D08</td>
-                        <td className="single  " data-seat={1302389888}>D07</td>
-                        <td className="single  " data-seat={1302389901}>D06</td>
-                        <td className="single  " data-seat={1302389914}>D05</td>
-                        <td className="single  " data-seat={1302389928}>D04</td>
-                        <td className="single  " data-seat={1302389942}>D03</td>
+                        <td className="busy  " data-seat={1302389845}>D10</td>
+                        <td className="busy  " data-seat={1302389860}>D09</td>
+                        <td className="busy " data-seat={1302389874}>D08</td>
+                        <td className="busy " data-seat={1302389888}>D07</td>
+                        <td className="busy " data-seat={1302389901}>D06</td>
+                        <td className="busy " data-seat={1302389914}>D05</td>
+                        <td className="busy " data-seat={1302389928}>D04</td>
+                        <td className="busy " data-seat={1302389942}>D03</td>
                         <td className="single  " data-seat={1302389956}>D02</td>
                         <td className="single  " data-seat={1302389970}>D01</td>
                         <td className="road" colSpan={2}>D</td>
@@ -229,10 +229,10 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389832}>F11</td>
                         <td className="single  " data-seat={1302389847}>F10</td>
                         <td className="single  " data-seat={1302389862}>F09</td>
-                        <td className="single busy " data-seat={1302389876}>F08</td>
-                        <td className="single busy " data-seat={1302389890}>F07</td>
-                        <td className="single busy " data-seat={1302389903}>F06</td>
-                        <td className="single busy " data-seat={1302389916}>F05</td>
+                        <td className="busy " data-seat={1302389876}>F08</td>
+                        <td className="busy " data-seat={1302389890}>F07</td>
+                        <td className="busy " data-seat={1302389903}>F06</td>
+                        <td className="busy " data-seat={1302389916}>F05</td>
                         <td className="single  " data-seat={1302389930}>F04</td>
                         <td className="single  " data-seat={1302389944}>F03</td>
                         <td className="single  " data-seat={1302389958}>F02</td>
@@ -246,14 +246,14 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389833}>G11</td>
                         <td className="single  " data-seat={1302389848}>G10</td>
                         <td className="single  " data-seat={1302389863}>G09</td>
-                        <td className="single busy " data-seat={1302389877}>G08</td>
-                        <td className="single busy " data-seat={1302389891}>G07</td>
-                        <td className="single busy " data-seat={1302389904}>G06</td>
-                        <td className="single busy " data-seat={1302389917}>G05</td>
-                        <td className="single busy " data-seat={1302389931}>G04</td>
-                        <td className="single busy " data-seat={1302389945}>G03</td>
+                        <td className="busy " data-seat={1302389877}>G08</td>
+                        <td className="busy " data-seat={1302389891}>G07</td>
+                        <td className="busy " data-seat={1302389904}>G06</td>
+                        <td className="busy " data-seat={1302389917}>G05</td>
+                        <td className="busy " data-seat={1302389931}>G04</td>
+                        <td className="busy " data-seat={1302389945}>G03</td>
                         <td className="single  " data-seat={1302389959}>G02</td>
-                        <td className="single busy " data-seat={1302389973}>G01</td>
+                        <td className="busy " data-seat={1302389973}>G01</td>
                         <td className="road" colSpan={2}>G</td>
                         <td />
                         <td />
@@ -263,10 +263,10 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389834}>H11</td>
                         <td className="single  " data-seat={1302389849}>H10</td>
                         <td className="single  " data-seat={1302389864}>H09</td>
-                        <td className="single busy " data-seat={1302389878}>H08</td>
-                        <td className="single busy " data-seat={1302389892}>H07</td>
-                        <td className="single busy " data-seat={1302389905}>H06</td>
-                        <td className="single busy " data-seat={1302389918}>H05</td>
+                        <td className="busy " data-seat={1302389878}>H08</td>
+                        <td className="busy " data-seat={1302389892}>H07</td>
+                        <td className="busy " data-seat={1302389905}>H06</td>
+                        <td className="busy " data-seat={1302389918}>H05</td>
                         <td className="single  " data-seat={1302389932}>H04</td>
                         <td className="single  " data-seat={1302389946}>H03</td>
                         <td className="single  " data-seat={1302389960}>H02</td>
@@ -280,10 +280,10 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389835}>J11</td>
                         <td className="single  " data-seat={1302389850}>J10</td>
                         <td className="single  " data-seat={1302389865}>J09</td>
-                        <td className="single  " data-seat={1302389879}>J08</td>
-                        <td className="single  " data-seat={1302389893}>J07</td>
-                        <td className="single  " data-seat={1302389906}>J06</td>
-                        <td className="single busy " data-seat={1302389919}>J05</td>
+                        <td className="busy " data-seat={1302389879}>J08</td>
+                        <td className="busy " data-seat={1302389893}>J07</td>
+                        <td className="busy " data-seat={1302389906}>J06</td>
+                        <td className="busy " data-seat={1302389919}>J05</td>
                         <td className="single  " data-seat={1302389933}>J04</td>
                         <td className="single  " data-seat={1302389947}>J03</td>
                         <td className="single  " data-seat={1302389961}>J02</td>
@@ -300,7 +300,7 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389880}>K10</td>
                         <td className="single  " data-seat={1302389894}>K09</td>
                         <td className="single  " data-seat={1302389907}>K08</td>
-                        <td className="single busy " data-seat={1302389920}>K07</td>
+                        <td className="busy " data-seat={1302389920}>K07</td>
                         <td className="single  " data-seat={1302389934}>K06</td>
                         <td className="single  " data-seat={1302389948}>K05</td>
                         <td className="single  " data-seat={1302389962}>K04</td>
@@ -353,9 +353,9 @@ class BookSeat extends React.Component {
                         <td className="single  " data-seat={1302389910}>N08</td>
                         <td className="single  " data-seat={1302389923}>N07</td>
                         <td className="single  " data-seat={1302389937}>N06</td>
-                        <td className="single busy " data-seat={1302389951}>N05</td>
-                        <td className="single busy " data-seat={1302389965}>N04</td>
-                        <td className="single busy " data-seat={1302389966}>N03</td>
+                        <td className="busy " data-seat={1302389951}>N05</td>
+                        <td className="busy " data-seat={1302389965}>N04</td>
+                        <td className="busy " data-seat={1302389966}>N03</td>
                         <td className="road" colSpan={2}>N</td>
                         <td className="single  " data-seat={1302390000}>N02</td>
                         <td className="single  " data-seat={1302390005}>N01</td>
@@ -413,6 +413,7 @@ class BookSeat extends React.Component {
               <ul className="cinema-note">
                 <li className="single">Ghế thường</li>
                 <li className="couple">Ghế đôi</li>
+                <li class="choosing">Ghế đang chọn</li>
                 <li className="busy">Ghế đã chọn</li>
                 <li className="road">Lối đi</li>
               </ul>
