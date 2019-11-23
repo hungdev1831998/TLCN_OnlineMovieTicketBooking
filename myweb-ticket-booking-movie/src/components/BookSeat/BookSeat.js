@@ -5,6 +5,7 @@ import axios from "axios";
 
 var list = [{}];
 var GioChieu = [];
+var stt = [];
 class BookSeat extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,8 @@ class BookSeat extends React.Component {
       NgayChieu: 'CHỌN NGÀY',
       GioChieu: 'CHỌN SUẤT CHIẾU',
       TenPhong: null,
-      Ghe: []
+      Ghe: [],
+      choosing: []
     }
     this.renderChonNgay = this.renderChonNgay.bind(this);
     this.getGhebyPhong = this.getGhebyPhong.bind(this);
@@ -155,9 +157,20 @@ class BookSeat extends React.Component {
         <tr key={ind}>
           {
             this.state.Ghe.map((item, index) => {
+              var status = 'single ';
               if (item["TenGhe"].slice(0,1) === ghe) {
+                if(item["status"] === true) {
+                  status = 'busy';
+                } else {
+                  for(var i = 0; i < this.state.choosing.length; i++) {
+                    if(item["TenGhe"] === this.state.choosing[i]) {
+                      status += "choosing";
+                      break;
+                    }
+                  }
+                }
                 return (
-                  <td className="single" key={index}>{item["TenGhe"]}</td>
+                  <td className={status} key={index} onClick={this.handleGheOnclick.bind(this, item["TenGhe"], status)}>{item["TenGhe"]}</td>
                 );
               }
               return null;
@@ -166,6 +179,28 @@ class BookSeat extends React.Component {
           <td className="road" colSpan={2}>{ghe}</td>
         </tr>
       );
+  }
+
+
+  handleGheOnclick = (tenghe, status) => {
+    if(status === "single choosing") {
+      stt.splice(stt.indexOf(tenghe), 1);
+    } else {
+      if(status !== "busy") {
+        var exist = false;
+        for(var i = 0; i < stt.length; i++) {
+          if(stt[i] === tenghe) {
+            exist = true;
+            break;
+          }
+        }
+        if(!exist) {
+          stt.push(tenghe);
+        }
+      }
+    }
+    this.setState({choosing: stt});
+    console.log(this.state.choosing);
   }
 
   render() {
@@ -202,91 +237,7 @@ class BookSeat extends React.Component {
                     <tbody>
                       {this.renderGhe()}
                       
-                      <tr>
-                        <td className="single choosing  " data-seat={1302389812}>A12</td>
-                        <td className="single  " data-seat={1302389827}>A11</td>
-                        <td className="single  " data-seat={1302389842}>A10</td>
-                        <td className="single  " data-seat={1302389857}>A09</td>
-                        <td className="single  " data-seat={1302389871}>A08</td>
-                        <td className="single  " data-seat={1302389885}>A07</td>
-                        <td className="single  " data-seat={1302389898}>A06</td>
-                        <td className="single  " data-seat={1302389911}>A05</td>
-                        <td className="single  " data-seat={1302389925}>A04</td>
-                        <td className="single  " data-seat={1302389939}>A03</td>
-                        <td className="single  " data-seat={1302389953}>A02</td>
-                        <td className="single  " data-seat={1302389967}>A01</td>
-                        <td className="road" colSpan={2}>A</td>
-                        <td />
-                        <td />
-                      </tr>
-                      <tr>
-                        <td className="single  " data-seat={1302389813}>B12</td>
-                        <td className="single  " data-seat={1302389828}>B11</td>
-                        <td className="single  " data-seat={1302389843}>B10</td>
-                        <td className="single  " data-seat={1302389858}>B09</td>
-                        <td className="single  " data-seat={1302389872}>B08</td>
-                        <td className="busy  " data-seat={1302389886}>B07</td>
-                        <td className="single  " data-seat={1302389899}>B06</td>
-                        <td className="single  " data-seat={1302389912}>B05</td>
-                        <td className="single  " data-seat={1302389926}>B04</td>
-                        <td className="single  " data-seat={1302389940}>B03</td>
-                        <td className="single  " data-seat={1302389954}>B02</td>
-                        <td className="single  " data-seat={1302389968}>B01</td>
-                        <td className="road" colSpan={2}>B</td>
-                        <td />
-                        <td />
-                      </tr>
-                      <tr>
-                        <td className="single  " data-seat={1302389814}>C12</td>
-                        <td className="single  " data-seat={1302389829}>C11</td>
-                        <td className="single  " data-seat={1302389844}>C10</td>
-                        <td className="single  " data-seat={1302389859}>C09</td>
-                        <td className="single  " data-seat={1302389873}>C08</td>
-                        <td className="single  " data-seat={1302389887}>C07</td>
-                        <td className="single  " data-seat={1302389900}>C06</td>
-                        <td className="single  " data-seat={1302389913}>C05</td>
-                        <td className="single  " data-seat={1302389927}>C04</td>
-                        <td className="single  " data-seat={1302389941}>C03</td>
-                        <td className="single  " data-seat={1302389955}>C02</td>
-                        <td className="single  " data-seat={1302389969}>C01</td>
-                        <td className="road" colSpan={2}>C</td>
-                        <td />
-                        <td />
-                      </tr>
-                      <tr>
-                        <td className="single  " data-seat={1302389815}>D12</td>
-                        <td className="single  " data-seat={1302389830}>D11</td>
-                        <td className="busy  " data-seat={1302389845}>D10</td>
-                        <td className="busy  " data-seat={1302389860}>D09</td>
-                        <td className="busy " data-seat={1302389874}>D08</td>
-                        <td className="busy " data-seat={1302389888}>D07</td>
-                        <td className="busy " data-seat={1302389901}>D06</td>
-                        <td className="busy " data-seat={1302389914}>D05</td>
-                        <td className="busy " data-seat={1302389928}>D04</td>
-                        <td className="busy " data-seat={1302389942}>D03</td>
-                        <td className="single  " data-seat={1302389956}>D02</td>
-                        <td className="single  " data-seat={1302389970}>D01</td>
-                        <td className="road" colSpan={2}>D</td>
-                        <td />
-                        <td />
-                      </tr>
-                      <tr>
-                        <td className="single  " data-seat={1302389816}>E12</td>
-                        <td className="single  " data-seat={1302389831}>E11</td>
-                        <td className="single  " data-seat={1302389846}>E10</td>
-                        <td className="single  " data-seat={1302389861}>E09</td>
-                        <td className="single  " data-seat={1302389875}>E08</td>
-                        <td className="single  " data-seat={1302389889}>E07</td>
-                        <td className="single  " data-seat={1302389902}>E06</td>
-                        <td className="single  " data-seat={1302389915}>E05</td>
-                        <td className="single  " data-seat={1302389929}>E04</td>
-                        <td className="single  " data-seat={1302389943}>E03</td>
-                        <td className="single  " data-seat={1302389957}>E02</td>
-                        <td className="single  " data-seat={1302389971}>E01</td>
-                        <td className="road" colSpan={2}>E</td>
-                        <td />
-                        <td />
-                      </tr>
+                     
                       <tr>
                         <td className="single  " data-seat={1302389817}>F12</td>
                         <td className="single  " data-seat={1302389832}>F11</td>
