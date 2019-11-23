@@ -6,6 +6,7 @@ import axios from "axios";
 var list = [{}];
 var GioChieu = [];
 var stt = [];
+var ghe = "";
 class BookSeat extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +24,7 @@ class BookSeat extends React.Component {
     }
     this.renderChonNgay = this.renderChonNgay.bind(this);
     this.getGhebyPhong = this.getGhebyPhong.bind(this);
+    this.handleHienSoGhe = this.handleHienSoGhe.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -47,7 +49,6 @@ class BookSeat extends React.Component {
 
   getFilminLichChieu = () => {
     var tenfilm = { TenFilm: this.state.TenFilm };
-    console.log(this.state.TenFilm);
     axios.post('http://localhost:3001/lichchieu/getlichbytenfilm', tenfilm)
       .then((res) => {
         if (res.data.length !== 0) {
@@ -199,8 +200,15 @@ class BookSeat extends React.Component {
         }
       }
     }
+    this.handleHienSoGhe();
     this.setState({ choosing: stt });
-    console.log(this.state.choosing);
+  }
+
+  handleHienSoGhe = () => {
+    ghe = "";
+    this.state.choosing.forEach((item) => {
+      ghe += (item + ', ');
+    });
   }
 
   render() {
@@ -273,7 +281,7 @@ class BookSeat extends React.Component {
               <div className="ticket-btn">
                 <div className="text-center">
                   <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
-                  <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Thanh toán</button>
+                  <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" >Thanh toán</button>
                 </div>
               </div>
               {/* Modal */}
@@ -288,11 +296,12 @@ class BookSeat extends React.Component {
                     <div className="modal-body">
                       <form role="form">
                         <div className="form-group">
-                          <label htmlFor="psw"><span className="" /> Tên phim: </label><br />
-                          <label htmlFor="psw"><span className="" /> Thời gian chiếu: </label><br />
-                          <label htmlFor="psw"><span className="" /> Tên phòng chiếu: </label><br />
-                          <label htmlFor="psw"><span className="" /> Tên ghế: </label><br />
-                          <label htmlFor="psw"><span className="" /> Số tiền: </label>
+                          <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tên phim: {this.state.TenFilm} </label><br />
+                          <label htmlFor=""><span className="" /> Thời gian chiếu: {this.state.GioChieu}</label><br />
+                          <label htmlFor="psw"><span className="" /> Ngày chiếu: {this.state.NgayChieu}</label><br />
+                          <label htmlFor="psw"><span className="" /> Tên phòng chiếu: 0{this.state.TenPhong}</label><br />
+                          <label htmlFor="psw"><span className="" /> {this.state.choosing.length} ghế: {ghe}</label><br />
+                          <label htmlFor="psw"><span className="" /> Số tiền: {this.state.choosing.length * 50000} đồng</label>
                         </div>
 
                       </form>

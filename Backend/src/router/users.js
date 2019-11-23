@@ -70,8 +70,8 @@ router.post('/login', (req, res, next) => {
               err.status = 401;
               return next(err);
             } else {
-              var {_id, username} = user; 
-              res.json({"message": "login success!", "sess":  {_id, username}});
+              var {_id, username, email} = user; 
+              res.json({"message": "login success!", "sess":  {_id, username, email}});
             }
 
         });
