@@ -2,7 +2,7 @@ import React from 'react';
 import "./Ticket.scss";
 import Header from '../header/header';
 import axios from "axios";
-
+import { Link } from 'react-router-dom';
 class Ticket extends React.Component {
     constructor(props) {
         super(props);
@@ -41,16 +41,62 @@ class Ticket extends React.Component {
                         </div>
                     </div>
 
-                    <div className="ticket-btn">
+                    {/* <div className="ticket-btn">
                         <div className="text-center">
                             <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
                             <button className="btn btn-primary">Thanh toán</button>
                         </div>
+                    </div> */}
+
+                    {/* Container (thanh toán Section) */}
+                    <div id="tour">
+                        
+                                        <div className="ticket-btn">
+                                            <div className="text-center">
+                                                <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
+                                                <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Thanh toán</button>
+                                           
+
+                            </div>
+                        </div>
+                        {/* Modal */}
+                        <div className="modal fade" id="myModal" role="dialog">
+                            <div className="modal-dialog">
+                                {/* Modal content*/}
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h4><span className="glyphicon glyphicon-lock" /> Thanh toán vé</h4>
+                                        <button type="button" className="close" data-dismiss="modal">×</button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form role="form">
+                                            <div className="form-group">
+                                                <label htmlFor="psw"><span className="" /> Tên phim: </label><br />
+                                                <label htmlFor="psw"><span className="" /> Thời gian chiếu: </label><br />
+                                                <label htmlFor="psw"><span className="" /> Tên phòng chiếu: </label><br />
+                                                <label htmlFor="psw"><span className="" /> Tên ghế: </label><br />
+                                                <label htmlFor="psw"><span className="" /> Số tiền: </label>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                                        Hủy <span className="glyphicon glyphicon-remove" /> 
+                                        </button>
+                                        <button type="submit" className="btn btn-success">Xác nhận
+                                                <span className="glyphicon glyphicon-ok" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className="ticket-details" style={{ opacity: 1 }}></div>
-
                 </div>
+
+
+
+                {/* <div className="ticket-details" style={{ opacity: 1 }}></div> */}
 
 
 

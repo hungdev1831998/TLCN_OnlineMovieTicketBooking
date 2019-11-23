@@ -7,7 +7,7 @@ class ContentWeb extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state= {
+        this.state = {
             films: []
         };
         this.addTenFilmLocalStorage = this.addTenFilmLocalStorage.bind(this);
@@ -15,9 +15,9 @@ class ContentWeb extends React.Component {
 
     UNSAFE_componentWillMount() {
         axios.get("http://localhost:3001/film/getfilms")
-        .then((res) => {
-            this.setStateFilms(res.data);
-        });
+            .then((res) => {
+                this.setStateFilms(res.data);
+            });
     }
 
     addTenFilmLocalStorage = (tenfilm) => {
@@ -25,7 +25,7 @@ class ContentWeb extends React.Component {
     }
 
     setStateFilms = (data) => {
-        this.setState({films: data});
+        this.setState({ films: data });
     }
 
     render() {
@@ -44,12 +44,12 @@ class ContentWeb extends React.Component {
                             </ol>
                             {/* Wrapper for slides */}
                             <div className="carousel-inner" role="listbox">
-                                {this.state.films.map((item, index) => 
-                                    (index === 0) ? 
+                                {this.state.films.map((item, index) =>
+                                    (index === 0) ?
                                         <div className="item active" key={index}>
                                             <img key={index} src={item.AnhBia} className="img-fluid" alt={item.TenFilm} style={{ width: 1688, height: 700 }} />
-                                         </div>
-                                    : 
+                                        </div>
+                                        :
                                         <div className="item" key={index}>
                                             <img key={index} src={item.AnhBia} className="img-fluid" alt={item.TenFilm} style={{ width: 1688, height: 700 }} />
                                         </div>
@@ -72,13 +72,13 @@ class ContentWeb extends React.Component {
                                 <h3 className="text-center">Phim đang hot</h3>
                                 <p className="text-center"><br /> Remember to book your tickets!</p>
                                 <div className="row text-center">
-                                    {this.state.films.map((item, index) => 
+                                    {this.state.films.map((item, index) =>
                                         <div className="col-sm-4" key={index + 100}>
                                             <div className="thumbnail" >
                                                 <img key={index} src={item.AnhBia} className="img-fluid" alt={item.TenFilm} style={{ width: 400, height: 300 }} />
                                                 <p><strong>{item.TenFilm}</strong></p>
-                                                
-                                                <button className="btn btn-bookticket" ><Link to={{pathname:"/bookseat", film: item}}>Đặt vé </Link></button>&nbsp;
+
+                                                <button className="btn btn-bookticket" ><Link to={{ pathname: "/bookseat", film: item }}>Đặt vé </Link></button>&nbsp;
                                                 <button className="btn btn-detail" data-toggle="modal" data-target={"#" + (index + 100000)}>Chi tiết</button>
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@ class ContentWeb extends React.Component {
                             </div>
 
                             {/*Modal Chi tiết*/}
-                            {this.state.films.map((item, index) => 
+                            {this.state.films.map((item, index) =>
                                 <div className="modal fade" id={index + 100000} role="dialog" key={index + 1000}>
                                     <div className="modal-dialog" >
                                         {/* Modal content*/}
@@ -105,14 +105,14 @@ class ContentWeb extends React.Component {
                                                         <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tóm tắt: </label>
                                                         <p className="text-center">{item.TomTat}</p><br />
                                                         <div className="text-center">
-                                                            <button className="btn btn-bookticketdetail" ><Link  to={{pathname:"/bookseat", film: item, reload: "abc"}}>Đặt vé </Link></button>&nbsp;
+                                                            <button className="btn btn-bookticketdetail" ><Link to={{ pathname: "/bookseat", film: item, reload: "abc" }}>Đặt vé </Link></button>&nbsp;
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </div>   
+                                </div>
                             )}
                         </div>
                         {/* Container (Contact Section) */}
