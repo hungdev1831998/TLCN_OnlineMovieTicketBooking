@@ -11,7 +11,7 @@ var GheSchema = new mongoose.Schema({
     },
     status: {
         type: Boolean,
-        required: false
+        default: false
     }
 });
 var Ghe = mongoose.model('Ghe', GheSchema);
