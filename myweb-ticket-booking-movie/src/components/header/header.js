@@ -15,6 +15,7 @@ class Header extends React.Component {
         e.preventDefault();
         localStorage.removeItem("user");
         this.setState({ usrname: null });
+        return window.location = '/';
     }
     UNSAFE_componentWillMount() {
         this.isLocalStorage();
@@ -52,10 +53,6 @@ class Header extends React.Component {
                                     </div>
                                     <div className="navbar-brand textcenter" href="#myPage">Tuấn Hưng Booking Ticket Movie</div>
 
-                                    {/* <ul className="nav navbar-nav navbar-right">
-                                        <li><Link to="/#"><span className="glyphicon glyphicon-search" /></Link></li>
-                                    </ul> */}
-
                                     <div>
                                         <ul className="nav navbar-navcenter navbar-right">
                                             {!(this.state.usrname) ?
@@ -73,9 +70,9 @@ class Header extends React.Component {
                                                                 <strong>{this.state.usrname}</strong> </button>
 
                                                             <div className="dropdown-menu dropdown-menu-right">
-                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/infoUser", reload: "" }}>Thông tin người dùng</Link></button>
-                                                                <button className="dropdown-item" type="button"><Link to={{ pathname: "/ticket", reload: "" }}>Vé đã đặt</Link></button>
-                                                                <button className="dropdown-item" type="button"><a onClick={this.onLogout} href="/"> Đăng xuất </a></button>
+                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/infoUser'}><a href='/ticket'>Thông tin người dùng</a></button>
+                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/ticket'}><a href='/ticket'>Vé đã đặt</a></button>
+                                                                <button className="dropdown-item" type="button" onClick={this.onLogout}><a href='/'>Đăng xuất</a></button>
                                                             </div>
                                                         </div>
 

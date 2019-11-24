@@ -6,7 +6,7 @@ import axios from "axios";
 var list = [{}];
 var GioChieu = [];
 var stt = [];
-var ghe = "";
+var strghe = "";
 class BookSeat extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,6 @@ class BookSeat extends React.Component {
     }
     this.renderChonNgay = this.renderChonNgay.bind(this);
     this.getGhebyPhong = this.getGhebyPhong.bind(this);
-    this.handleHienSoGhe = this.handleHienSoGhe.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -200,15 +199,52 @@ class BookSeat extends React.Component {
         }
       }
     }
-    this.handleHienSoGhe();
     this.setState({ choosing: stt });
+    strghe = "";
+    stt.forEach((item) => {
+      strghe += (item + ', ');
+    });
   }
 
-  handleHienSoGhe = () => {
-    ghe = "";
-    this.state.choosing.forEach((item) => {
-      ghe += (item + ', ');
-    });
+  handleOnclickXacNhanDatVe = () => {
+    if(localStorage.getItem('user') && this.state.choosing) {
+      var ve = {
+        email: JSON.parse(localStorage.getItem('user'))['email'],
+        TenFilm: this.state.TenFilm,
+        TenPhong: this.state.TenPhong,
+        TenGhe: this.state.choosing,
+        ThoiGianChieu: this.state.NgayChieu + "T" + this.state.GioChieu
+      }
+      axios.post('http://localhost:3001/ve/addve', ve)
+      .then((res) => {
+        if(res.data['mess'] === "Them ve thanh cong!") {
+          var ghes = [];
+          this.state.choosing.forEach(item => {
+            var a = {
+              TenPhong: this.state.TenPhong,
+              TenGhe: item,
+              status: 'true'
+            }
+            ghes.push(a);
+          });
+          ghes.forEach(item => {
+            axios.put('http://localhost:3001/ghe/updatestatus', item)
+            .then((res) => {
+              if(res.data['mess'] === "update status success!") {
+                this.setState({choosing: []});
+                strghe = "";
+                stt = [];
+                return ( 
+                  window.location = '/',
+                  window.alert('Đặt vé thành công!')
+                )
+              }
+              
+            });
+          });
+        }
+      });
+    }
   }
 
   render() {
@@ -269,7 +305,7 @@ class BookSeat extends React.Component {
               </div>
               <ul className="cinema-note">
                 <li className="single">Ghế thường</li>
-                <li class="choosing">Ghế đang chọn</li>
+                <li className="choosing">Ghế đang chọn</li>
                 <li className="busy">Ghế đã chọn</li>
                 <li className="road">Lối đi</li>
               </ul>
@@ -294,23 +330,22 @@ class BookSeat extends React.Component {
                       <button type="button" className="close" data-dismiss="modal">×</button>
                     </div>
                     <div className="modal-body">
-                      <form role="form">
+                      <form >
                         <div className="form-group">
                           <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tên phim: {this.state.TenFilm} </label><br />
                           <label htmlFor=""><span className="" /> Thời gian chiếu: {this.state.GioChieu}</label><br />
                           <label htmlFor="psw"><span className="" /> Ngày chiếu: {this.state.NgayChieu}</label><br />
                           <label htmlFor="psw"><span className="" /> Tên phòng chiếu: 0{this.state.TenPhong}</label><br />
-                          <label htmlFor="psw"><span className="" /> {this.state.choosing.length} ghế: {ghe}</label><br />
+                          <label htmlFor="psw"><span className="" /> {this.state.choosing.length} ghế: {strghe}</label><br />
                           <label htmlFor="psw"><span className="" /> Số tiền: {this.state.choosing.length * 50000} đồng</label>
                         </div>
-
                       </form>
                     </div>
                     <div className="modal-footer">
                       <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal">
                         Hủy <span className="glyphicon glyphicon-remove" />
                       </button>
-                      <button type="submit" className="btn btn-success">Xác nhận
+                      <button type="submit" className="btn btn-success" onClick={this.handleOnclickXacNhanDatVe.bind(this)}>Xác nhận
                                 <span className="glyphicon glyphicon-ok" />
                       </button>
                     </div>

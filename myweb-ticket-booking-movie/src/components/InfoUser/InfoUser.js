@@ -24,18 +24,14 @@ class InfoUser extends React.Component {
                                     <div className="col-title">Tên tài tài khoản:</div><div className="col-value">{this.state.user['username']}</div><br />
                                     <div className="col-title">Email:</div><div className="col-value">{this.state.user['email']}</div><br />
                                     <div className="col-title">Mật khẩu:</div><div className="col-value">**********</div><br />
-
                                 </ul>
-                                <a className="modify-user" href="javascript:void(0);" style={{ display: 'none' }}>Thay đổi thông tin</a>
                             </div>
                         </div>
                         <div className="user-center">
                             <div className="user-form modify" style={{ display: 'block' }}>
-
-                                {/* <h3 className="user-title">Chỉnh sửa thông tin cá nhân</h3> */}
                                 <h2 style={{ textAlign: 'center', background: 'url(/img/top_bg_user.jpg)  repeat 0 0', height: '75px' }}>
                                     <span style={{ width: '1100px', display: 'inline-block', marginTop: '13px' }}>
-                                        <img src="img/title_info_change_user.jpg" />
+                                        <img src="img/title_info_change_user.jpg" alt="" />
                                     </span>
                                 </h2>
                                 <form id="modify-top">

@@ -6,6 +6,7 @@ const userRouter = require('./src/router/users');
 const phongchieuRouter = require('./src/router/phongchieus');
 const lichchieuRouter = require('./src/router/lichchieus');
 const gheRouter = require('./src/router/ghes');
+const veRouter = require('./src/router/ves');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -15,6 +16,7 @@ server.set('view engine', 'ejs');
 
 server.use('/phongchieu', phongchieuRouter);
 server.use('/ghe', gheRouter);
+server.use('/ve', veRouter);
 server.use('/lichchieu', lichchieuRouter);
 server.use('/user', userRouter);
 server.use('/film', filmRouter);
