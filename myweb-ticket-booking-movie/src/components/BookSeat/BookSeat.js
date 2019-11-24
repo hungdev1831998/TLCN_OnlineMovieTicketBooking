@@ -244,6 +244,8 @@ class BookSeat extends React.Component {
           });
         }
       });
+    } else {
+      return window.location = '/login';
     }
   }
 
