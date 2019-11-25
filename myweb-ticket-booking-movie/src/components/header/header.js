@@ -70,13 +70,11 @@ class Header extends React.Component {
                                                                 <strong>{this.state.usrname}</strong> </button>
 
                                                             <div className="dropdown-menu dropdown-menu-right">
-                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/infoUser'}>Thông tin người dùng</button>
-                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/ticket'}>Vé đã đặt</button>
-                                                                <button className="dropdown-item" type="button" onClick={this.onLogout}>Đăng xuất</button>
+                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/infoUser'}><h5>Thông tin người dùng</h5></button>
+                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/ticket'}><h5>Vé đã đặt</h5></button>
+                                                                <button className="dropdown-item" type="button" onClick={this.onLogout}><h5>Đăng xuất</h5></button>
                                                             </div>
                                                         </div>
-
-                                                        {/* <strong>{this.state.usrname}</strong> <a onClick={this.onLogout} href="/">    LOGOUT</a></Link> */}
                                                     </Link>
                                                 </div>
                                             }
