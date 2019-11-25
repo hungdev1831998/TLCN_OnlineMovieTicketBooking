@@ -37,14 +37,14 @@ class InfoUser extends React.Component {
                                 <form id="modify-top">
                                    
                                     <div className="require-col">
-                                        <div className="input-text uẻname">
+                                        <div className="input-text username">
                                             <input id="update_name" name="name" type="text" defaultValue={this.state.user['username']} placeholder="TÊN TÀI KHOẢN (*)" />
                                         </div>
                                         <div className="input-text code">
-                                            <input id="update_password" name="password" type="text" defaultValue="123456" placeholder="Mật Khẩu (*)" />
+                                            <input id="update_password" name="password" type="password" defaultValue="123456" placeholder="Mật Khẩu (*)" />
                                         </div>
                                         <div className="input-text tel">
-                                            <input id="update_password_confirm" name="password_confirm" type="text" defaultValue="123456" placeholder="Nhập lại mật Khẩu (*)" />
+                                            <input id="update_password_confirm" name="password_confirm" type="password" defaultValue="123456" placeholder="Nhập lại mật Khẩu (*)" />
                                         </div>
                                         
                                         <div className="input-but">

@@ -467,6 +467,24 @@ form {
     -webkit-transition: all .3s ease-in-out;
     border: 1.5px solid #0000FF;
 }
+.input-text input[type=password] {
+    font-family: myriadlight;
+    font-weight: 400;
+    color: #fff;
+    font-size: 16px;
+    line-height: 40px;
+    padding: 0 20px;
+    width: 100%;
+    height: 45px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    color: #000;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    border: 1.5px solid #0000FF;
+}
 .input-but input.modify-user-hide[type=button] {
     color: #0000FF;
     background-color: rgba(0,0,0,.1);

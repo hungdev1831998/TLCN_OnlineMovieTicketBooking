@@ -6,7 +6,7 @@ const fs = require('fs');
 const DateOnly = require('date-only');
 
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose');
 
@@ -15,7 +15,7 @@ const Film = mongoose.model("Film");
 
 
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     var drinks = [
         { name: 'Bloody Mary', drunkness: 3 },
         { name: 'Martini', drunkness: 5 },
@@ -29,20 +29,20 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/getfilms', (req, res)  => {
-    Film.find({$and: [{NgayChieu:{$lte:Date.now()}}, {NgayKetThuc:{$gte:Date.now()}}]}, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
+router.get('/getfilms', (req, res) => {
+    Film.find({ $and: [{ NgayChieu: { $lte: Date.now() } }, { NgayKetThuc: { $gte: Date.now() } }] }, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
         res.json(films);
     }).catch((err) => {
-        if(err) {
+        if (err) {
             throw err;
         }
     });
 });
-router.get('/allfilms', (req, res)  => {
+router.get('/allfilms', (req, res) => {
     Film.find({}, 'TenFilm DaoDien TenNuocSX AnhBia').then((films) => {
         res.json(films);
     }).catch((err) => {
-        if(err) {
+        if (err) {
             throw err;
         }
     });
@@ -51,14 +51,14 @@ router.get('/allfilms', (req, res)  => {
 router.get('/film/:id', (req, res) => {
     Film.findById(req.params.id).then((film) => {
 
-        if(film) {
+        if (film) {
             res.json(film);
         } else {
             res.sendStatus(404);
         }
 
     }).catch((err) => {
-        if(err) {
+        if (err) {
             throw err;
         }
     });
@@ -72,25 +72,25 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage:storage}).single('AnhBia');
+const upload = multer({ storage: storage }).single('AnhBia');
 
-const myFunc = (res) => {
-    console.log("abc");
-    Film.find({$or: [{ 'TenFilm': "Lật Mặt" }]}, 'TenFilm DaoDien TenNuocSX AnhBia').then((films) => {
-        console.log(films);
-        res.render('pages/viewfilm', {
-            AnhBia: films[0].AnhBia
-        })
-    }).catch((err) => {
-        if(err) {
-            throw err;
-        }
-    });
-}
+// const myFunc = (res) => {
+//     console.log("abc");
+//     Film.find({ $or: [{ 'TenFilm': "Lật Mặt" }] }, 'TenFilm DaoDien TenNuocSX AnhBia').then((films) => {
+//         console.log(films);
+//         res.render('pages/viewfilm', {
+//             AnhBia: films[0].AnhBia
+//         })
+//     }).catch((err) => {
+//         if (err) {
+//             throw err;
+//         }
+//     });
+// }
 
 router.post('/upload', (req, res) => {
     upload(req, res, (err) => {
-        if(err) throw err;
+        if (err) throw err;
         else {
             var newFilm = {
                 TenFilm: req.body.TenFilm,
@@ -108,7 +108,7 @@ router.post('/upload', (req, res) => {
             film.save().then(() => {
                 console.log("New film created!");
             }).catch((err) => {
-                if(err) {
+                if (err) {
                     throw err;
                 }
             });
@@ -118,9 +118,19 @@ router.post('/upload', (req, res) => {
     });
 });
 
+router.post('/getImageByName', (req, res)=>{
+    Film.find({ $or: [{ TenFilm: req.body.TenFilm } ] }, 'TenFilm AnhBia').then((films) => {
+        res.json(films);
+    }).catch((err) => {
+        if (err) {
+            throw err;
+        }
+    });
+})
+
 router.delete('/delete', (req, res) => {
-    Film.findByIdAndDelete({_id: mongoose.Types.ObjectId(req.body.id)}, (err) => {
-        if(err) {
+    Film.findByIdAndDelete({ _id: mongoose.Types.ObjectId(req.body.id) }, (err) => {
+        if (err) {
             throw err;
         } else {
             res.send("abc");
@@ -139,7 +149,7 @@ router.delete('/delete', (req, res) => {
 //         NgayKetThuc: req.body.NgayKetThuc,
 //         AnhBia: req.body.AnhBia
 //     };
-    
+
 //     var film = new Film(newFilm);
 
 //     film.save().then(() => {

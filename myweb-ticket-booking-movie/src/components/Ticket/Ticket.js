@@ -2,15 +2,18 @@ import React from 'react';
 import "./Ticket.scss";
 import Header from '../header/header';
 import axios from "axios";
+var images = [];
 class Ticket extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ve: []
+            ve: [],
+            image: []
         }
         this.getVebyemail = this.getVebyemail.bind(this);
         this.renderVe = this.renderVe.bind(this);
         this.reloadPage = this.reloadPage.bind(this);
+        this.getImageByFilmName = this.getImageByFilmName.bind(this);
     }
 
     componentDidMount() {
@@ -18,14 +21,44 @@ class Ticket extends React.Component {
     }
 
     getVebyemail = () => {
-        if(localStorage.getItem('user')) {
+        if (localStorage.getItem('user')) {
             var email = {
-                email: JSON.parse(localStorage.getItem('user'))['email'] }
+                email: JSON.parse(localStorage.getItem('user'))['email']
+            }
             axios.post('http://localhost:3001/ve/getvebyemail', email)
-            .then((res) => {
-                this.setState({ve: res.data});
-            });
+                .then((res) => {
+                    this.setState({ ve: res.data });
+                    this.state.ve.forEach(item => {
+                        this.getImageByFilmName(item["TenFilm"]);
+                    });
+                });
+            
         }
+    }
+    
+    getImageByFilmName = (tenfilm) => {
+        var Tenfilm = {
+            TenFilm: tenfilm
+        }
+        axios.post('http://localhost:3001/film/getImageByName', Tenfilm)
+            .then((res) => {
+                if(images.length === 0) {
+                    images.push(res.data[0]);
+                    this.setState({image: images});
+                } else {
+                    var exist = false;
+                    for(var i = 0; i < images.length; i++) {
+                        if(res.data[0]["TenFilm"] === images[i]["TenFilm"]) {
+                            exist = true;
+                        }
+                    }
+                    if(!exist) {
+                        images.push(res.data[0]);
+                        this.setState({image: images});
+                    }
+                }
+                
+            });
     }
 
     handleOnclickXacNhan = (ve) => {
@@ -38,11 +71,12 @@ class Ticket extends React.Component {
             status: true
         }
         axios.put('http://localhost:3001/ve/updatestatus', vecanxacnhan)
-        .then((res) => {
-            if(res.data['mess'] === 'update status success!') {
-                this.reloadPage();
-            }
-        });
+            .then((res) => {
+                if (res.data['mess'] === 'update status success!') {
+                    images = [];
+                    this.reloadPage();
+                }
+            });
     }
 
     reloadPage = () => {
@@ -50,17 +84,26 @@ class Ticket extends React.Component {
     }
 
     renderVe = () => {
-        if(this.state.ve.length !==  0) {
+        if (this.state.ve.length !== 0) {
             return this.state.ve.map((item, index) => {
                 var tenghe = "";
                 item['TenGhe'].forEach((ghe) => {
-                    tenghe += ghe +  ", ";
+                    tenghe += ghe + ", ";
                 });
                 return (
-                    <div className="ticket-wrap" >
+                    <div className="ticket-wrap" key={index}>
                         <div className="ticket-center" >
-                            <div className="row" >
-                                <div class="col-md-8" >
+                            <div className="row">
+                                <div className="col-md-4" >
+                                    {this.state.image.map(items => 
+                                        (item["TenFilm"] === items["TenFilm"]) ?
+                                            <img key={index + 100} src={items["AnhBia"]} alt={items.TenFilm} style={{ width: 383, height: 315 }}></img>
+                                        :
+                                        null
+                                    )}
+                                    
+                                </div>
+                                <div className="col-md-8" >
                                     <div className="ticket-info" >
                                         <h2>THÔNG TIN VÉ</h2>
                                         <ul>
@@ -95,9 +138,12 @@ class Ticket extends React.Component {
     }
 
     render() {
+        const hStyle = { color: 'red' };
         return (
             <div className="container">
                 <Header />
+                <center><h2 style={hStyle}><br/>Chỉ để nhân viên nhấn "xác nhận"</h2></center>
+                <center><h2 style={hStyle}>(quý khách tự ý bấm mất vé rạp phim không chịu trách nhiệm)</h2></center>
                 {this.renderVe()}
             </div>
         );
