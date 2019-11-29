@@ -130,7 +130,7 @@ class BookSeat extends React.Component {
   renderChonGioChieu = () => {
     return GioChieu.map((item, index) => {
       return (
-        <button className="dropdown-item" key={index} onClick={this.HandleClickGio.bind(this, item)}>{item} </button>
+        <button className="dropdown-item" key={index} onClick={this.HandleClickGio.bind(this, item)}>{item.substring(0, item.length - 5)} </button>
       );
     });
   }
@@ -268,7 +268,7 @@ class BookSeat extends React.Component {
             <div className="btn-group" style={{ marginTop: '8px' }}>
               <div className="dropdown">
                 <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
-                  {this.state.GioChieu}</button>&nbsp;
+                  {this.state.GioChieu.substring(0, this.state.GioChieu.length - 5)}</button>&nbsp;
                   <div className="dropdown-menu">
                   {this.renderChonGioChieu()}
                 </div>
@@ -335,10 +335,10 @@ class BookSeat extends React.Component {
                       <form >
                         <div className="form-group">
                           <label htmlFor=""><span className="glyphicon glyphicon-user" /> Tên phim: {this.state.TenFilm} </label><br />
-                          <label htmlFor=""><span className="" /> Thời gian chiếu: {this.state.GioChieu}</label><br />
+                          <label htmlFor=""><span className="" /> Thời gian chiếu: {this.state.GioChieu.substring(0, this.state.GioChieu.length - 5)}</label><br />
                           <label htmlFor="psw"><span className="" /> Ngày chiếu: {this.state.NgayChieu}</label><br />
                           <label htmlFor="psw"><span className="" /> Tên phòng chiếu: 0{this.state.TenPhong}</label><br />
-                          <label htmlFor="psw"><span className="" /> {this.state.choosing.length} ghế: {strghe}</label><br />
+                          <label htmlFor="psw"><span className="" /> {this.state.choosing.length} ghế: {strghe.substring(0, strghe.length - 2)}</label><br />
                           <label htmlFor="psw"><span className="" /> Số tiền: {this.state.choosing.length * 50000} đồng</label>
                         </div>
                       </form>

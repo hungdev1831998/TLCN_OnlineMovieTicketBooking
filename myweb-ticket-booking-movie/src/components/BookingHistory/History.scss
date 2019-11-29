@@ -1,0 +1,57 @@
+.ticket-center {
+   
+    width: 100%;
+    height: auto;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    background-color: #DCDCDC;
+}
+.ticket-wrap {
+    margin-top: 100px;  ///
+    width: 100%;
+    height: 100%;
+    //  position: fixed;   //ảnh hưởng footer
+    left: 0;
+    top: 0;
+    z-index: 8000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+}
+.ticket-details {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 0;
+    display: block;
+    opacity: 0;
+    margin-top: 50px; ///
+}
+
+.ticket-info {
+    display: inline-block;
+    vertical-align: top;
+    // width: 49%;
+     text-align: left;
+     padding: 30px;
+     margin: 0;
+     position: relative;
+    // margin-left: 40px;
+}
+.ticket-info h2{
+    text-align: center;
+}
+.ticket-info li {
+    padding: 5px 10px;
+}
+
+.ticket-btn {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 30px 0;
+    text-align: center;
+}

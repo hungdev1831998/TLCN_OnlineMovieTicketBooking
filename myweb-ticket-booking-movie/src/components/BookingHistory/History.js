@@ -1,9 +1,9 @@
 import React from 'react';
-import "./Ticket.scss";
+import "./History.scss";
 import Header from '../header/header';
 import axios from "axios";
 var images = [];
-class Ticket extends React.Component {
+class History extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,7 +12,6 @@ class Ticket extends React.Component {
         }
         this.getVebyemail = this.getVebyemail.bind(this);
         this.renderVe = this.renderVe.bind(this);
-        this.reloadPage = this.reloadPage.bind(this);
         this.getImageByFilmName = this.getImageByFilmName.bind(this);
     }
 
@@ -24,7 +23,7 @@ class Ticket extends React.Component {
         if (localStorage.getItem('user')) {
             var email = {
                 email: JSON.parse(localStorage.getItem('user'))['email'],
-                status: false
+                status: true
             }
             axios.post('http://localhost:3001/ve/getvebyemail', email)
                 .then((res) => {
@@ -62,27 +61,6 @@ class Ticket extends React.Component {
             });
     }
 
-    handleOnclickXacNhan = (ve) => {
-        var vecanxacnhan = {
-            email: JSON.parse(localStorage.getItem('user'))['email'],
-            TenFilm: ve.TenFilm,
-            TenPhong: ve.TenPhong,
-            TenGhe: ve.TenGhe[0],
-            ThoiGianChieu: ve.ThoiGianChieu,
-            status: true
-        }
-        axios.put('http://localhost:3001/ve/updatestatus', vecanxacnhan)
-            .then((res) => {
-                if (res.data['mess'] === 'update status success!') {
-                    images = [];
-                    this.reloadPage();
-                }
-            });
-    }
-
-    reloadPage = () => {
-        return window.location = '/ticket';
-    }
 
     renderVe = () => {
         if (this.state.ve.length !== 0) {
@@ -122,10 +100,6 @@ class Ticket extends React.Component {
 
                         <div id="tour">
                             <div className="ticket-btn">
-                                <div className="text-center">
-                                    <button className="btn btn-primary">Hủy đặt vé</button> &nbsp;&nbsp;
-                                    <button className="btn btn-primary" data-toggle="modal" onClick={this.handleOnclickXacNhan.bind(this, item)}>Xác nhận</button>
-                                </div>
                                 ------------------------------------------------------
                             </div>
                         </div>
@@ -134,21 +108,20 @@ class Ticket extends React.Component {
             });
         } else {
             return (
-                <center >hiện tại bạn chưa mua vé nào cả!</center>
+                <center >:))</center>
             )
         }
     }
 
     render() {
-        const hStyle = { color: 'red' };
+        const hStyle = { color: 'blue' };
         return (
             <div className="container">
                 <Header />
-                <center><h2 style={hStyle}><br/>Chỉ để nhân viên nhấn "xác nhận"</h2></center>
-                <center><h2 style={hStyle}>(quý khách tự ý bấm mất vé rạp phim không chịu trách nhiệm)</h2></center>
+                <center><h2 style={hStyle}><br/>Lịch sử đặt vé</h2></center>
                 {this.renderVe()}
             </div>
         );
     }
 }
-export default Ticket;
+export default History;

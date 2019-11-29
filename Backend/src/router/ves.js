@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -35,8 +36,19 @@ router.post('/addve', (req, res) => {
             ThoiGianChieu: req.body.ThoiGianChieu
         };
         var ve = new Ve(newVe);
+        var strve = JSON.stringify(newVe);
         ve.save().then(() => {
             console.log("Them ghe thanh cong!");
+            var mailOptions = {
+                from: 'tuanhungcinema@gmail.com',
+                to: req.body.email,
+                subject: 'Dat ve thanh cong',
+                html: '<body><h1>' + strve + '</h1></body>'
+            }
+    
+            transporter.sendMail(mailOptions, (info) => {
+                console.log('email sent: ' + info.response);
+            });
             return res.json({ "mess": "Them ve thanh cong!" });
         }).catch((err) => {
             if (err) {
@@ -58,6 +70,7 @@ router.put('/updatestatus', (req, res) => {
             if(err) {
                 throw err;
             } else {
+                
                 res.json({mess: 'update status success!'});
             }
         }
@@ -73,7 +86,7 @@ router.delete('/delete', (req, res) => {
 });
 
 router.post('/getvebyemail', (req, res) => {
-    Ve.find({ $and: [{ 'email': req.body.email }, {'status': false}]}).then((ves) => {
+    Ve.find({ $and: [{ 'email': req.body.email }, {'status': req.body.status}]}).then((ves) => {
         return res.json(ves);
     }).catch((err) => {
         if (err) {
@@ -81,5 +94,14 @@ router.post('/getvebyemail', (req, res) => {
         }
     });
 });
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'tuanhungcinema@gmail.com',
+        pass: 'tuanhung123'
+    }
+});
+
 
 module.exports = router;
