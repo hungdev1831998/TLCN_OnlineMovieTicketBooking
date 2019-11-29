@@ -63,13 +63,36 @@ class Ticket extends React.Component {
     }
 
     handleOnclickXacNhan = (ve) => {
+        var thoigianthuc = new Date();
+        var thoigianxacthuc = thoigianthuc.getFullYear() + "-";
+        if(thoigianthuc.getMonth() + 1 < 10 ) {
+            thoigianxacthuc +=  "0";
+        }
+        thoigianxacthuc +=  (thoigianthuc.getMonth() + 1) + "-";
+        if(thoigianthuc.getDate() < 10) {
+            thoigianxacthuc +=  "0";
+        }
+        thoigianxacthuc +=  thoigianthuc.getDate() + "T";
+        if(thoigianthuc.getHours() < 10) {
+            thoigianxacthuc +=  "0";
+        }
+        thoigianxacthuc +=  thoigianthuc.getHours() + ":";
+        if(thoigianthuc.getMinutes() < 10) {
+            thoigianxacthuc +=  "0";
+        }
+        thoigianxacthuc +=  thoigianthuc.getMinutes() + ":";
+        if(thoigianthuc.getSeconds() < 10) {
+            thoigianxacthuc +=  "0";
+        }
+        thoigianxacthuc +=  thoigianthuc.getSeconds() + ".000Z";
         var vecanxacnhan = {
             email: JSON.parse(localStorage.getItem('user'))['email'],
             TenFilm: ve.TenFilm,
             TenPhong: ve.TenPhong,
             TenGhe: ve.TenGhe[0],
             ThoiGianChieu: ve.ThoiGianChieu,
-            status: true
+            status: true,
+            ThoiGianXacNhan: thoigianxacthuc
         }
         axios.put('http://localhost:3001/ve/updatestatus', vecanxacnhan)
             .then((res) => {
@@ -92,6 +115,8 @@ class Ticket extends React.Component {
                     tenghe += ghe + ", ";
                 });
                 var thoigianchieu = item['ThoiGianChieu'].split('T')[1];
+                var giodat = item['ThoiGianDat'].split('T')[1];
+                var thoigiandat = giodat.substring(0, giodat.length - 5) + " " + item['ThoiGianDat'].split('T')[0];
                 return (
                     <div className="ticket-wrap" key={index}>
                         <div className="ticket-center" >
@@ -114,6 +139,7 @@ class Ticket extends React.Component {
                                             <div className="col-title">Thời gian chiếu:</div><div className="col-value">{thoigianchieu.substring(0, thoigianchieu.length - 5)}</div><br />
                                             <div className="col-title">Phòng chiếu:</div><div className="col-value">{item['TenPhong']}</div><br />
                                             <div className="col-title">Chỗ ngồi:</div><div className="col-value">{tenghe.substring(0, tenghe.length - 2)}</div><br />
+                                            <div className="col-title">Thời gian đặt vé:</div><div className="col-value">{thoigiandat}</div><br />
                                         </ul>
                                     </div>
                                 </div>

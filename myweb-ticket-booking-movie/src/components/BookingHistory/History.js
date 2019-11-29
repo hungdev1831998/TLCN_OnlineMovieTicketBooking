@@ -70,6 +70,10 @@ class History extends React.Component {
                     tenghe += ghe + ", ";
                 });
                 var thoigianchieu = item['ThoiGianChieu'].split('T')[1];
+                var giodat = item['ThoiGianDat'].split('T')[1];
+                var thoigiandat = giodat.substring(0, giodat.length - 5) + " " + item['ThoiGianDat'].split('T')[0];
+                var gioxacnhan = item['ThoiGianXacNhan'].split('T')[1];
+                var thoigianxacnhan = gioxacnhan.substring(0, gioxacnhan.length - 5) + " " + item['ThoiGianXacNhan'].split('T')[0];
                 return (
                     <div className="ticket-wrap" key={index}>
                         <div className="ticket-center" >
@@ -92,6 +96,8 @@ class History extends React.Component {
                                             <div className="col-title">Thời gian chiếu:</div><div className="col-value">{thoigianchieu.substring(0, thoigianchieu.length - 5)}</div><br />
                                             <div className="col-title">Phòng chiếu:</div><div className="col-value">{item['TenPhong']}</div><br />
                                             <div className="col-title">Chỗ ngồi:</div><div className="col-value">{tenghe.substring(0, tenghe.length - 2)}</div><br />
+                                            <div className="col-title">Thời gian đặt vé:</div><div className="col-value">{thoigiandat}</div><br />
+                                            <div className="col-title">Thời gian thời gian xác nhận:</div><div className="col-value">{thoigianxacnhan}</div><br />
                                         </ul>
                                     </div>
                                 </div>
@@ -108,7 +114,7 @@ class History extends React.Component {
             });
         } else {
             return (
-                <center >:))</center>
+                <center >Bạn chưa mua vé nào!!!</center>
             )
         }
     }

@@ -24,7 +24,15 @@ var VeSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: false
-    }
+    },
+    ThoiGianDat: {
+        type: Date,
+        default: Date.now()
+    },
+    ThoiGianXacNhan: {
+        type: Date,
+        default: Date.now()
+    },
 });
 var Ve = mongoose.model('Ve', VeSchema);
 module.exports = Ve;

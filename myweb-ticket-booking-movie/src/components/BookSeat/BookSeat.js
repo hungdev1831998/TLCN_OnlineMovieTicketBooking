@@ -208,12 +208,35 @@ class BookSeat extends React.Component {
 
   handleOnclickXacNhanDatVe = () => {
     if(localStorage.getItem('user') && this.state.choosing) {
+      var thoigianthuc = new Date();
+      var thoigianxacthuc = thoigianthuc.getFullYear() + "-";
+      if(thoigianthuc.getMonth() + 1 < 10 ) {
+          thoigianxacthuc +=  "0";
+      }
+      thoigianxacthuc +=  (thoigianthuc.getMonth() + 1) + "-";
+      if(thoigianthuc.getDate() < 10) {
+          thoigianxacthuc +=  "0";
+      }
+      thoigianxacthuc +=  thoigianthuc.getDate() + "T";
+      if(thoigianthuc.getHours() < 10) {
+          thoigianxacthuc +=  "0";
+      }
+      thoigianxacthuc +=  thoigianthuc.getHours() + ":";
+      if(thoigianthuc.getMinutes() < 10) {
+          thoigianxacthuc +=  "0";
+      }
+      thoigianxacthuc +=  thoigianthuc.getMinutes() + ":";
+      if(thoigianthuc.getSeconds() < 10) {
+          thoigianxacthuc +=  "0";
+      }
+      thoigianxacthuc +=  thoigianthuc.getSeconds() + ".000Z";
       var ve = {
         email: JSON.parse(localStorage.getItem('user'))['email'],
         TenFilm: this.state.TenFilm,
         TenPhong: this.state.TenPhong,
         TenGhe: this.state.choosing,
-        ThoiGianChieu: this.state.NgayChieu + "T" + this.state.GioChieu
+        ThoiGianChieu: this.state.NgayChieu + "T" + this.state.GioChieu,
+        ThoiGianDat: thoigianxacthuc
       }
       axios.post('http://localhost:3001/ve/addve', ve)
       .then((res) => {
