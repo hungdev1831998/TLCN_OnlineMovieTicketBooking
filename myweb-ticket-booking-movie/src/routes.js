@@ -7,6 +7,7 @@ import ContentWeb from './components/contentweb/contentweb';
 import BookSeat from './components/BookSeat/BookSeat';
 import InfoUser from './components/InfoUser/InfoUser';
 import Ticket from './components/Ticket/Ticket';
+import History from './components/BookingHistory/History';
 class RouterWeb extends React.Component {	
 
     render() {	
@@ -20,6 +21,7 @@ class RouterWeb extends React.Component {
                 <Route path="/bookseat" component={BookSeat}/>
                 <Route path="/infoUser" component={InfoUser}/>
                 <Route path="/ticket" component={Ticket}/>
+                <Route path="/history" component={History}/>
             </Switch>	
 
         );	

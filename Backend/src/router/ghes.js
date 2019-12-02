@@ -196,7 +196,21 @@ router.put('/updatestatus', (req, res) => {
             }
         }
     )
-})
+});
+
+router.put('/updatestatusbyTenPhong', (req, res) => {
+    Ghe.updateMany(
+        {$and: [{'TenPhong': req.body.TenPhong}]},
+        {$set: {'status': req.body.status}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                res.json({mess: 'update status success!'});
+            }
+        }
+    )
+});
 
 router.get('/getGhes', (req, res) => {
     Ghe.find().then((ghes) => {

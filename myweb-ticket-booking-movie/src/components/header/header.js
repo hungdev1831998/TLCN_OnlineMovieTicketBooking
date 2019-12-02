@@ -72,6 +72,7 @@ class Header extends React.Component {
                                                             <div className="dropdown-menu dropdown-menu-right">
                                                                 <button className="dropdown-item" type="button" onClick={() => window.location = '/infoUser'}><h5>Thông tin người dùng</h5></button>
                                                                 <button className="dropdown-item" type="button" onClick={() => window.location = '/ticket'}><h5>Vé đã đặt</h5></button>
+                                                                <button className="dropdown-item" type="button" onClick={() => window.location = '/history'}><h5>Lịch sử mua vé</h5></button>
                                                                 <button className="dropdown-item" type="button" onClick={this.onLogout}><h5>Đăng xuất</h5></button>
                                                             </div>
                                                         </div>

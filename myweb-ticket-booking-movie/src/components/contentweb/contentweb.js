@@ -124,7 +124,7 @@ class ContentWeb extends React.Component {
                                     <p>Address</p>
                                     <p><span className="glyphicon glyphicon-map-marker" />Long An, Việt Nam</p>
                                     <p><span className="glyphicon glyphicon-phone" />Phone: 0348010604</p>
-                                    <p><span className="glyphicon glyphicon-envelope" />Email: phimviet789@mail.com</p>
+                                    <p><span className="glyphicon glyphicon-envelope" />Email: tuanhungcinema@mail.com</p>
                                 </div>
                                 <div className="col-md-8">
                                     <div className="row">
