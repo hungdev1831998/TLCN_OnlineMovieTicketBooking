@@ -10,7 +10,6 @@ class ContentWeb extends React.Component {
         this.state = {
             films: []
         };
-        this.addTenFilmLocalStorage = this.addTenFilmLocalStorage.bind(this);
     }
 
     UNSAFE_componentWillMount() {
@@ -20,9 +19,6 @@ class ContentWeb extends React.Component {
             });
     }
 
-    addTenFilmLocalStorage = (tenfilm) => {
-        localStorage.setItem("TenFilm", JSON.stringify(tenfilm));
-    }
 
     setStateFilms = (data) => {
         this.setState({ films: data });

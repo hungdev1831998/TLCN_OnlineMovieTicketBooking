@@ -39,7 +39,7 @@ router.get('/getfilms', (req, res) => {
     });
 });
 router.get('/allfilms', (req, res) => {
-    Film.find({}, 'TenFilm DaoDien TenNuocSX AnhBia').then((films) => {
+    Film.find({}).then((films) => {
         res.json(films);
     }).catch((err) => {
         if (err) {
@@ -89,6 +89,7 @@ const upload = multer({ storage: storage }).single('AnhBia');
 // }
 
 router.post('/upload', (req, res) => {
+    console.log("abcdcdfdfsd");
     upload(req, res, (err) => {
         if (err) throw err;
         else {
@@ -103,7 +104,6 @@ router.post('/upload', (req, res) => {
                 AnhBia: "img/" + req.file.path.split('\\')[4],
                 TomTat: req.body.TomTat
             };
-            console.log(req.body.NgayKetThuc);
             var film = new Film(newFilm);
             film.save().then(() => {
                 console.log("New film created!");
@@ -128,16 +128,41 @@ router.post('/getImageByName', (req, res)=>{
     });
 })
 
-router.delete('/delete', (req, res) => {
-    Film.findByIdAndDelete({ _id: mongoose.Types.ObjectId(req.body.id) }, (err) => {
+router.post('/getFilmByName', (req, res)=>{
+    Film.find({ $or: [{ TenFilm: req.body.TenFilm } ] }).then((films) => {
+        res.json(films);
+    }).catch((err) => {
         if (err) {
             throw err;
-        } else {
-            res.send("abc");
+        }
+    });
+})
+
+router.post('/delete', (req, res) => {
+    Film.deleteOne({TenFilm: req.body.TenFilm}).then((films) => {
+        console.log("delete film success!");
+        res.json({"mess" : "delete film success!"});
+    }).catch((err) => {
+        if(err)
+            throw err;
+    })
+});
+
+
+router.put('/update', (req, res) => {
+    Film.updateMany({
+        $and: [{'TenFilm': req.body.TenFilm}]},
+        {$set: {'DaoDien': req.body.DaoDien, 'TenNuocSX': req.body.TenNuocSX,
+                'TomTat': req.body.TomTat, 'NgayChieu': req.body.NgayChieu,
+                'NgayKetThuc': req.body.NgayKetThuc, 'TongChi': req.body.TongChi}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                res.json({message: 'update film success!'});
         }
     });
 });
-
 // router.post('/addnewfilm', (req, res) => {
 //     var newFilm = {
 //         TenFilm: req.body.TenFilm,

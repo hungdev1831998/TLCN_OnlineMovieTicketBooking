@@ -1,12 +1,45 @@
 import React, { Component } from 'react';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 class Menu extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            usrname: null
+        };
+        this.onLogout = this.onLogout.bind(this);
+    }
+
+    onLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("user");
+        this.setState({ usrname: null });
+        return window.location = '/';
+    }
+    
+    UNSAFE_componentWillMount() {
+        this.isLocalStorage();
+    }
+
+    isLocalStorage = () => {
+        if (JSON.parse(sessionStorage.getItem('user')) != null) {
+            var username = JSON.parse(sessionStorage.getItem('user'))["username"] ?
+                JSON.parse(sessionStorage.getItem('user'))["username"] : null;
+        }
+        this.setState({ usrname: username });
+        if(!username)
+        return window.location = '/';
+    }
+
     render() {
         return (
             <div >
+                <Header />
                 <aside className="main-sidebar sidebar-dark-primary elevation-4 ">
                     {/* Brand Logo */}
-                    <a href="index3.html" className="brand-link">
+                    <a href="/menu" className="brand-link">
                         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
                         <span className="brand-text font-weight-light">Admin Manage</span>
                     </a>
@@ -14,11 +47,8 @@ class Menu extends Component {
                     <div className="sidebar">
                         {/* Sidebar user panel (optional) */}
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-                            <div className="image">
-                                <img src="dist/img/admintuan.jpg" className="img-circle elevation-2" alt="User Image" />
-                            </div>
                             <div className="info">
-                                <a href="#" className="d-block">Admin Tuan</a>
+                                <a href="/menu" className="d-block">{this.state.usrname}</a>
                             </div>
                         </div>
                         {/* Sidebar Menu */}
@@ -27,7 +57,7 @@ class Menu extends Component {
 
                                 {/* ManageUser */}
                                 <li className="nav-item has-treeview">
-                                    <a href="#" className="nav-link">
+                                    <a href="" className="nav-link">
                                         <i className="nav-icon fas fa-book" />
                                         <p>
                                             Manage User
@@ -58,7 +88,7 @@ class Menu extends Component {
 
                                 {/* ManageFilm */}
                                 <li className="nav-item has-treeview">
-                                    <a href="#" className="nav-link">
+                                    <a href="" className="nav-link">
                                         <i className="nav-icon fas fa-book" />
                                         <p>Manage Film
                                     <i className="fas fa-angle-left right" />
@@ -78,7 +108,7 @@ class Menu extends Component {
                                             </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a href="/updatefilm" className="nav-link">
+                                            <a href="/allfilms" className="nav-link">
                                                 <i className="far fa-circle nav-icon" />
                                                 <p>Edit Film</p>
                                             </a>
@@ -86,38 +116,8 @@ class Menu extends Component {
                                     </ul>
                                 </li>
 
-                                {/* Mail */}
                                 <li className="nav-item has-treeview">
-                                    <a href="#" className="nav-link">
-                                        <i className="nav-icon far fa-envelope" />
-                                        <p>Mailbox
-                        <i className="fas fa-angle-left right" />
-                                        </p>
-                                    </a>
-                                    <ul className="nav nav-treeview">
-                                        <li className="nav-item">
-                                            <a href="/inboxmail" className="nav-link">
-                                                <i className="far fa-circle nav-icon" />
-                                                <p>Inbox</p>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a href="/composemail" className="nav-link">
-                                                <i className="far fa-circle nav-icon" />
-                                                <p>Compose</p>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a href="/readmail" className="nav-link">
-                                                <i className="far fa-circle nav-icon" />
-                                                <p>Read</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li className="nav-item has-treeview">
-                                    <a href="#" className="nav-link">
+                                    <a href="" className="nav-link">
                                         <i className="nav-icon fas fa-chart-pie" />
                                         <p>
                                             Statistical Revenue
@@ -139,7 +139,7 @@ class Menu extends Component {
                     </div>
                     {/* /.sidebar */}
                 </aside>
-
+                <Footer />
             </div>
         );
     }

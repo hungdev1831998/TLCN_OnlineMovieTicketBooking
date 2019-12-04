@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
+import Menu from '../../Menu/Menu';
 
 class AllUsers extends Component {
     render() {
         return (
             <div>
+                < Menu />
                 <div className="content-wrapper">
                     <section className="content-header">
                         <div className="container-fluid">
