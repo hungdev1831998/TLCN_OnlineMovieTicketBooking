@@ -32,32 +32,32 @@ class History extends React.Component {
                         this.getImageByFilmName(item["TenFilm"]);
                     });
                 });
-            
+
         }
     }
-    
+
     getImageByFilmName = (tenfilm) => {
         var Tenfilm = {
             TenFilm: tenfilm
         }
         axios.post('http://localhost:3001/film/getImageByName', Tenfilm)
             .then((res) => {
-                if(images.length === 0) {
+                if (images.length === 0) {
                     images.push(res.data[0]);
-                    this.setState({image: images});
+                    this.setState({ image: images });
                 } else {
                     var exist = false;
-                    for(var i = 0; i < images.length; i++) {
-                        if(res.data[0]["TenFilm"] === images[i]["TenFilm"]) {
+                    for (var i = 0; i < images.length; i++) {
+                        if (res.data[0]["TenFilm"] === images[i]["TenFilm"]) {
                             exist = true;
                         }
                     }
-                    if(!exist) {
+                    if (!exist) {
                         images.push(res.data[0]);
-                        this.setState({image: images});
+                        this.setState({ image: images });
                     }
                 }
-                
+
             });
     }
 
@@ -79,13 +79,13 @@ class History extends React.Component {
                         <div className="ticket-center" >
                             <div className="row">
                                 <div className="col-md-4" >
-                                    {this.state.image.map(items => 
+                                    {this.state.image.map(items =>
                                         (item["TenFilm"] === items["TenFilm"]) ?
                                             <img key={index + 100} src={items["AnhBia"]} alt={items.TenFilm} style={{ width: 383, height: 315 }}></img>
-                                        :
-                                        null
+                                            :
+                                            null
                                     )}
-                                    
+
                                 </div>
                                 <div className="col-md-8" >
                                     <div className="ticket-info" >
@@ -114,7 +114,10 @@ class History extends React.Component {
             });
         } else {
             return (
-                <center >Bạn chưa mua vé nào!!!</center>
+                <div className="container">
+                    <center> <h5>Bạn chưa mua vé nào!!!</h5></center>
+                    <div className="ticket-details" style={{ opacity: 1 }}></div>
+                </div>
             )
         }
     }
@@ -124,7 +127,7 @@ class History extends React.Component {
         return (
             <div className="container">
                 <Header />
-                <center><h2 style={hStyle}><br/>Lịch sử đặt vé</h2></center>
+                <center><h2 style={hStyle}><br />Lịch sử đặt vé</h2></center>
                 {this.renderVe()}
             </div>
         );

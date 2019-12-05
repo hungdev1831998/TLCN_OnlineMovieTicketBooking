@@ -2,7 +2,7 @@ import React from 'react';
 import "./BookSeat.scss";
 import Header from '../header/header';
 import axios from "axios";
-
+import { Link } from 'react-router-dom';
 var list = [{}];
 var GioChieu = [];
 var stt = [];
@@ -207,29 +207,29 @@ class BookSeat extends React.Component {
   }
 
   handleOnclickXacNhanDatVe = () => {
-    if(localStorage.getItem('user') && this.state.choosing) {
+    if (localStorage.getItem('user') && this.state.choosing) {
       var thoigianthuc = new Date();
       var thoigianxacthuc = thoigianthuc.getFullYear() + "-";
-      if(thoigianthuc.getMonth() + 1 < 10 ) {
-          thoigianxacthuc +=  "0";
+      if (thoigianthuc.getMonth() + 1 < 10) {
+        thoigianxacthuc += "0";
       }
-      thoigianxacthuc +=  (thoigianthuc.getMonth() + 1) + "-";
-      if(thoigianthuc.getDate() < 10) {
-          thoigianxacthuc +=  "0";
+      thoigianxacthuc += (thoigianthuc.getMonth() + 1) + "-";
+      if (thoigianthuc.getDate() < 10) {
+        thoigianxacthuc += "0";
       }
-      thoigianxacthuc +=  thoigianthuc.getDate() + "T";
-      if(thoigianthuc.getHours() < 10) {
-          thoigianxacthuc +=  "0";
+      thoigianxacthuc += thoigianthuc.getDate() + "T";
+      if (thoigianthuc.getHours() < 10) {
+        thoigianxacthuc += "0";
       }
-      thoigianxacthuc +=  thoigianthuc.getHours() + ":";
-      if(thoigianthuc.getMinutes() < 10) {
-          thoigianxacthuc +=  "0";
+      thoigianxacthuc += thoigianthuc.getHours() + ":";
+      if (thoigianthuc.getMinutes() < 10) {
+        thoigianxacthuc += "0";
       }
-      thoigianxacthuc +=  thoigianthuc.getMinutes() + ":";
-      if(thoigianthuc.getSeconds() < 10) {
-          thoigianxacthuc +=  "0";
+      thoigianxacthuc += thoigianthuc.getMinutes() + ":";
+      if (thoigianthuc.getSeconds() < 10) {
+        thoigianxacthuc += "0";
       }
-      thoigianxacthuc +=  thoigianthuc.getSeconds() + ".000Z";
+      thoigianxacthuc += thoigianthuc.getSeconds() + ".000Z";
       var ve = {
         email: JSON.parse(localStorage.getItem('user'))['email'],
         TenFilm: this.state.TenFilm,
@@ -239,34 +239,34 @@ class BookSeat extends React.Component {
         ThoiGianDat: thoigianxacthuc
       }
       axios.post('http://localhost:3001/ve/addve', ve)
-      .then((res) => {
-        if(res.data['mess'] === "Them ve thanh cong!") {
-          var ghes = [];
-          this.state.choosing.forEach(item => {
-            var a = {
-              TenPhong: this.state.TenPhong,
-              TenGhe: item,
-              status: 'true'
-            }
-            ghes.push(a);
-          });
-          ghes.forEach(item => {
-            axios.put('http://localhost:3001/ghe/updatestatus', item)
-            .then((res) => {
-              if(res.data['mess'] === "update status success!") {
-                this.setState({choosing: []});
-                strghe = "";
-                stt = [];
-                return ( 
-                  window.location = '/',
-                  window.alert('Đặt vé thành công!')
-                )
+        .then((res) => {
+          if (res.data['mess'] === "Them ve thanh cong!") {
+            var ghes = [];
+            this.state.choosing.forEach(item => {
+              var a = {
+                TenPhong: this.state.TenPhong,
+                TenGhe: item,
+                status: 'true'
               }
-              
+              ghes.push(a);
             });
-          });
-        }
-      });
+            ghes.forEach(item => {
+              axios.put('http://localhost:3001/ghe/updatestatus', item)
+                .then((res) => {
+                  if (res.data['mess'] === "update status success!") {
+                    this.setState({ choosing: [] });
+                    strghe = "";
+                    stt = [];
+                    return (
+                      window.location = '/',
+                      window.alert('Đặt vé thành công!')
+                    )
+                  }
+
+                });
+            });
+          }
+        });
     } else {
       return window.location = '/login';
     }
@@ -341,7 +341,9 @@ class BookSeat extends React.Component {
             <div id="pay">
               <div className="ticket-btn">
                 <div className="text-center">
-                  <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
+                  <Link to="/">
+                    <button className="btn btn-primary">Hủy</button> &nbsp;&nbsp;
+                  </Link>
                   <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" >Thanh toán</button>
                 </div>
               </div>

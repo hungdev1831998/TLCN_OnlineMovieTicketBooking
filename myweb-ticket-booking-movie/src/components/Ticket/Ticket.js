@@ -33,58 +33,58 @@ class Ticket extends React.Component {
                         this.getImageByFilmName(item["TenFilm"]);
                     });
                 });
-            
+
         }
     }
-    
+
     getImageByFilmName = (tenfilm) => {
         var Tenfilm = {
             TenFilm: tenfilm
         }
         axios.post('http://localhost:3001/film/getImageByName', Tenfilm)
             .then((res) => {
-                if(images.length === 0) {
+                if (images.length === 0) {
                     images.push(res.data[0]);
-                    this.setState({image: images});
+                    this.setState({ image: images });
                 } else {
                     var exist = false;
-                    for(var i = 0; i < images.length; i++) {
-                        if(res.data[0]["TenFilm"] === images[i]["TenFilm"]) {
+                    for (var i = 0; i < images.length; i++) {
+                        if (res.data[0]["TenFilm"] === images[i]["TenFilm"]) {
                             exist = true;
                         }
                     }
-                    if(!exist) {
+                    if (!exist) {
                         images.push(res.data[0]);
-                        this.setState({image: images});
+                        this.setState({ image: images });
                     }
                 }
-                
+
             });
     }
 
     handleOnclickXacNhan = (ve) => {
         var thoigianthuc = new Date();
         var thoigianxacthuc = thoigianthuc.getFullYear() + "-";
-        if(thoigianthuc.getMonth() + 1 < 10 ) {
-            thoigianxacthuc +=  "0";
+        if (thoigianthuc.getMonth() + 1 < 10) {
+            thoigianxacthuc += "0";
         }
-        thoigianxacthuc +=  (thoigianthuc.getMonth() + 1) + "-";
-        if(thoigianthuc.getDate() < 10) {
-            thoigianxacthuc +=  "0";
+        thoigianxacthuc += (thoigianthuc.getMonth() + 1) + "-";
+        if (thoigianthuc.getDate() < 10) {
+            thoigianxacthuc += "0";
         }
-        thoigianxacthuc +=  thoigianthuc.getDate() + "T";
-        if(thoigianthuc.getHours() < 10) {
-            thoigianxacthuc +=  "0";
+        thoigianxacthuc += thoigianthuc.getDate() + "T";
+        if (thoigianthuc.getHours() < 10) {
+            thoigianxacthuc += "0";
         }
-        thoigianxacthuc +=  thoigianthuc.getHours() + ":";
-        if(thoigianthuc.getMinutes() < 10) {
-            thoigianxacthuc +=  "0";
+        thoigianxacthuc += thoigianthuc.getHours() + ":";
+        if (thoigianthuc.getMinutes() < 10) {
+            thoigianxacthuc += "0";
         }
-        thoigianxacthuc +=  thoigianthuc.getMinutes() + ":";
-        if(thoigianthuc.getSeconds() < 10) {
-            thoigianxacthuc +=  "0";
+        thoigianxacthuc += thoigianthuc.getMinutes() + ":";
+        if (thoigianthuc.getSeconds() < 10) {
+            thoigianxacthuc += "0";
         }
-        thoigianxacthuc +=  thoigianthuc.getSeconds() + ".000Z";
+        thoigianxacthuc += thoigianthuc.getSeconds() + ".000Z";
         var vecanxacnhan = {
             email: JSON.parse(localStorage.getItem('user'))['email'],
             TenFilm: ve.TenFilm,
@@ -122,13 +122,13 @@ class Ticket extends React.Component {
                         <div className="ticket-center" >
                             <div className="row">
                                 <div className="col-md-4" >
-                                    {this.state.image.map(items => 
+                                    {this.state.image.map(items =>
                                         (item["TenFilm"] === items["TenFilm"]) ?
                                             <img key={index + 100} src={items["AnhBia"]} alt={items.TenFilm} style={{ width: 383, height: 315 }}></img>
-                                        :
-                                        null
+                                            :
+                                            null
                                     )}
-                                    
+
                                 </div>
                                 <div className="col-md-8" >
                                     <div className="ticket-info" >
@@ -160,7 +160,10 @@ class Ticket extends React.Component {
             });
         } else {
             return (
-                <center >hiện tại bạn chưa mua vé nào cả!</center>
+                <div className="container">
+                    <center> <h5>Hiện tại bạn chưa mua vé nào cả!</h5></center>
+                    <div className="ticket-details" style={{ opacity: 1 }}></div>
+                </div>
             )
         }
     }
@@ -170,7 +173,7 @@ class Ticket extends React.Component {
         return (
             <div className="container">
                 <Header />
-                <center><h2 style={hStyle}><br/>Chỉ để nhân viên nhấn "xác nhận"</h2></center>
+                <center><h2 style={hStyle}><br />Chỉ để nhân viên nhấn "xác nhận"</h2></center>
                 <center><h2 style={hStyle}>(quý khách tự ý bấm mất vé rạp phim không chịu trách nhiệm)</h2></center>
                 {this.renderVe()}
             </div>
