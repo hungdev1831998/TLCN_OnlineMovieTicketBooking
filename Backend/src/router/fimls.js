@@ -68,11 +68,11 @@ const multer = require('multer');
 const storage = multer.diskStorage({
     destination: '../myweb-ticket-booking-movie/public/img/',
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, Date.now() + '-' + file.originalname);
     }
 });
 
-const upload = multer({ storage: storage }).single('AnhBia');
+const upload = multer({ storage: storage });
 
 // const myFunc = (res) => {
 //     console.log("abc");
@@ -88,12 +88,7 @@ const upload = multer({ storage: storage }).single('AnhBia');
 //     });
 // }
 
-router.post('/upload', (req, res) => {
-    console.log(req.body);
-    upload(req, res, (err) => {
-        console.log(req.file);
-        if (err) throw err;
-        else {
+router.post('/upload',upload.single('AnhBia'), (req, res) => {
             var newFilm = {
                 TenFilm: req.body.TenFilm,
                 DaoDien: req.body.DaoDien,
@@ -113,10 +108,7 @@ router.post('/upload', (req, res) => {
                     throw err;
                 }
             });
-            // res.send("New film created!");
-            res.render('pages/about');
-        }
-    });
+            res.json({message: "New film created!"});
 });
 
 router.post('/getImageByName', (req, res)=>{

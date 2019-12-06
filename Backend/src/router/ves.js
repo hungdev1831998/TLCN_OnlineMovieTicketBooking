@@ -40,14 +40,21 @@ router.post('/addve', (req, res) => {
                         ThoiGianDat: req.body.ThoiGianDat
                     };
                     var ve = new Ve(newVe);
-                    var strve = JSON.stringify(newVe);
                     ve.save().then(() => {
                         console.log("Them ghe thanh cong!");
                         var mailOptions = {
                             from: 'tuanhungcinema@gmail.com',
                             to: req.body.email,
                             subject: 'Dat ve thanh cong',
-                            html: '<body><h1>' + strve + '</h1></body>'
+                            html: '<body><form >' +
+                                    '<div className="form-group">' +
+                                        '<label htmlFor=""><span className="glyphicon glyphicon-user" /> Tên phim: ' + newVe.TenFilm +'</label><br />' +
+                                        '<label htmlFor="psw"><span className="" /> Tên phòng chiếu: 0'+ newVe.TenPhong +'</label><br />' +
+                                        '<label htmlFor="psw"><span className="" /> ghế: '+ newVe.TenGhe +'</label><br />' +
+                                        '<label htmlFor=""><span className="" /> Thời gian chiếu: ' + newVe.ThoiGianChieu +'</label><br />' +
+                                        '<label htmlFor=""><span className="" /> Thời gian chiếu: ' + newVe.ThoiGianDat +'</label><br />' +
+                                    '</div>' +
+                                  '</form></body>'
                         }
                 
                         transporter.sendMail(mailOptions, (info) => {
@@ -74,8 +81,6 @@ router.post('/addve', (req, res) => {
 });
 
 router.put('/updatestatus', (req, res) => {
-    console.log(Date.parse("2019-11-29T22:33:02.000Z"));
-    console.log(req.body);
     Ve.updateMany(
         {$and: [{'email': req.body.email}, {'TenFilm': req.body.TenFilm},
                 {"TenPhong": req.body.TenPhong} ,{"TenGhe": req.body.TenGhe},

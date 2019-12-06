@@ -92,18 +92,18 @@ class AddFilm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const header = new Headers();
-        header.append('Accept', 'application/json');
+        console.log(document);
         const fd = new FormData();
-        fd.append('AnhBia', this.state.Film.AnhBia, this.state.Film.AnhBia.name);
+        fd.append('AnhBia', this.state.Film.AnhBia);
+        fd.append('TenFilm', this.state.Film.TenFilm);
+        fd.append('DaoDien', this.state.Film.DaoDien);
+        fd.append('TenNuocSX', this.state.Film.TenNuocSX);
+        fd.append('TomTat', this.state.Film.TomTat);
+        fd.append('NgayChieu', this.state.Film.NgayChieu);
+        fd.append('NgayKetThuc', this.state.Film.NgayKetThuc);
+        fd.append('TongChi', this.state.Film.TongChi);
         const film = this.state.Film;
-        const req =  new Request({
-            method: 'POST',
-            headers: header,
-            mode: 'no-cors',
-            body: fd
-        });
-        axios.post('http://localhost:3001/film/upload', req)
+        axios.post('http://localhost:3001/film/upload', fd)
         .then((res) => {
             if(res.data["message"] === "New film created!") {
                 window.alert("New film created!");
