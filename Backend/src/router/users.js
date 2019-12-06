@@ -39,7 +39,8 @@ router.post('/register', (req, res) => {
                     var userData = {
                         email: req.body.email,
                         username: req.body.username,
-                        password: req.body.password
+                        password: req.body.password,
+                        role: req.body.role
                     }
                     var user = new User(userData);
                     user.save().then(() => {
@@ -78,7 +79,7 @@ router.post('/login', (req, res, next) => {
     }
 });
 
-router.get('/alluser', (req, res)  => {
+router.get('/allusers', (req, res)  => {
     User.find({}).then((users) => {
         res.json(users);
     }).catch((err) => {
@@ -88,20 +89,39 @@ router.get('/alluser', (req, res)  => {
     });
 });
 
-// router.get('/user', (req, res) => {
-//     User.findById(req.session.userId).then((user) => {
-//         if(user) {
-//             res.json(user);
-//             console.log(user);
-//         } else {
-//             res.sendStatus(404);
-//         }
-//     }).catch((err) => {
-//         if(err) {
-//             throw err;
-//         }
-//     });
-// });
+router.post('/delete', (req, res) => {
+    User.deleteOne({email: req.body.email}).then((email) => {
+        console.log("delete user success!");
+        res.json({"mess" : "delete user success!"});
+    }).catch((err) => {
+        if(err)
+            throw err;
+    })
+});
+
+
+router.put('/update', (req, res) => {
+    User.updateMany({
+        $and: [{'email': req.body.email}]},
+        {$set: {'username': req.body.username, 'role': req.body.role}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                res.json({message: 'update user success!'});
+        }
+    });
+});
+
+router.post('/getUserByEmail', (req, res)=>{
+    User.find({ email: req.body.email }).then((user) => {
+        res.json(user);
+    }).catch((err) => {
+        if (err) {
+            throw err;
+        }
+    });
+})
 
 router.get('/logout', (req, res, next) => {
   if (req.session) {

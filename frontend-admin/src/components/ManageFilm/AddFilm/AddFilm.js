@@ -84,7 +84,7 @@ class AddFilm extends Component {
 
     onChangeAnhBia = (e) => {
         var film = this.state.Film;
-        film["AnhBia"] = e.target.value;
+        film["AnhBia"] = e.target.files[0];
         this.setState({
             Film: film
         });
@@ -92,9 +92,18 @@ class AddFilm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-
+        const header = new Headers();
+        header.append('Accept', 'application/json');
+        const fd = new FormData();
+        fd.append('AnhBia', this.state.Film.AnhBia, this.state.Film.AnhBia.name);
         const film = this.state.Film;
-        axios.post('http://localhost:3001/film/upload', film)
+        const req =  new Request({
+            method: 'POST',
+            headers: header,
+            mode: 'no-cors',
+            body: fd
+        });
+        axios.post('http://localhost:3001/film/upload', req)
         .then((res) => {
             if(res.data["message"] === "New film created!") {
                 window.alert("New film created!");

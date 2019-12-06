@@ -68,7 +68,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
     destination: '../myweb-ticket-booking-movie/public/img/',
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, file.originalname);
     }
 });
 
@@ -89,8 +89,9 @@ const upload = multer({ storage: storage }).single('AnhBia');
 // }
 
 router.post('/upload', (req, res) => {
-    console.log("abcdcdfdfsd");
+    console.log(req.body);
     upload(req, res, (err) => {
+        console.log(req.file);
         if (err) throw err;
         else {
             var newFilm = {

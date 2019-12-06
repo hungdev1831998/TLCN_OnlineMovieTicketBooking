@@ -14,7 +14,7 @@ class Menu extends Component {
 
     onLogout = (e) => {
         e.preventDefault();
-        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
         this.setState({ usrname: null });
         return window.location = '/';
     }
@@ -48,7 +48,7 @@ class Menu extends Component {
                         {/* Sidebar user panel (optional) */}
                         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                             <div className="info">
-                                <a href="/menu" className="d-block">{this.state.usrname}</a>
+                                <a href="/menu" className="d-block">Admin: {this.state.usrname}</a>
                             </div>
                         </div>
                         {/* Sidebar Menu */}
@@ -78,7 +78,7 @@ class Menu extends Component {
                                             </a>
                                         </li>
                                         <li className="nav-item">
-                                            <a href="/updateuser" className="nav-link">
+                                            <a href="/allusers" className="nav-link">
                                                 <i className="far fa-circle nav-icon" />
                                                 <p>Edit User</p>
                                             </a>
@@ -118,10 +118,39 @@ class Menu extends Component {
 
                                 <li className="nav-item has-treeview">
                                     <a href="" className="nav-link">
+                                        <i className="nav-icon fas fa-book" />
+                                        <p>Manage Schedule
+                                    <i className="fas fa-angle-left right" />
+                                        </p>
+                                    </a>
+                                    <ul className="nav nav-treeview">
+                                        <li className="nav-item">
+                                            <a href="/allfilms" className="nav-link">
+                                                <i className="far fa-circle nav-icon" />
+                                                <p>All Schedule</p>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="/allfilms" className="nav-link">
+                                                <i className="far fa-circle nav-icon" />
+                                                <p>Add Schedule</p>
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a href="/allfilms" className="nav-link">
+                                                <i className="far fa-circle nav-icon" />
+                                                <p>Edit Schedule</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li className="nav-item has-treeview">
+                                    <a href="" className="nav-link">
                                         <i className="nav-icon fas fa-chart-pie" />
                                         <p>
                                             Statistical Revenue
-                        <i className="right fas fa-angle-left" />
+                                            <i className="right fas fa-angle-left" />
                                         </p>
                                     </a>
                                     <ul className="nav nav-treeview">
@@ -133,6 +162,13 @@ class Menu extends Component {
                                         </li>
                                     </ul>
                                 </li>
+                                <center>
+                                    <li className="nav-item has-treeview">
+                                        <a href="/" className="d-block" onClick={this.onLogout.bind(this)} className="nav-link">
+                                            <p>Logout</p>
+                                        </a>
+                                    </li>
+                                </center>
                             </ul>
                         </nav>
                         {/* /.sidebar-menu */}
