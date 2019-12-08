@@ -19,12 +19,12 @@ class Header extends Component {
                             <li className="nav-item d-none d-sm-inline-block">
                                 <a href="/" className="nav-link">Login</a>
                             </li>
-                            <li className="nav-item d-none d-sm-inline-block">
+                            {/* <li className="nav-item d-none d-sm-inline-block">
                                 <a href="/contact" className="nav-link">Contact</a>
-                            </li>
+                            </li> */}
                         </ul>
                         {/* SEARCH FORM */}
-                        <form className="form-inline ml-3">
+                        {/* <form className="form-inline ml-3">
                             <div className="input-group input-group-sm">
                                 <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
                                 <div className="input-group-append">
@@ -33,7 +33,7 @@ class Header extends Component {
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </form> */}
                         
                     </nav>
                     {/* /.navbar */}
