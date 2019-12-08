@@ -40,7 +40,7 @@ class AllFilms extends Component {
 
     handleOnclickDelete = (tenphim) => {
         var tenfilm = {TenFilm: tenphim};
-        axios.post("http://localhost:3001/film/delete", tenfilm)
+        axios.put("http://localhost:3001/film/delete", tenfilm)
             .then((res) => {
                 window.location.reload();
             });

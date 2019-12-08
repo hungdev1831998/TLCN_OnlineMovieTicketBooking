@@ -40,7 +40,7 @@ class AllUsers extends Component {
 
     handleOnclickDelete = (email) => {
         var email = {email: email};
-        axios.post("http://localhost:3001/user/delete", email)
+        axios.put("http://localhost:3001/user/delete", email)
             .then((res) => {
                 window.location.reload();
             });
