@@ -110,7 +110,7 @@ class Login extends React.Component {
                 </div>
 
             ) : ( 
-                <Redirect to={{ pathname: "/menu", state: { from: "/login" } }} />
+                <Redirect to={{ pathname: "/allfilms", state: { from: "/login" } }} />
             )
         );
     }

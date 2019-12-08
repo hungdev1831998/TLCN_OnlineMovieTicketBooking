@@ -14,7 +14,7 @@ class Header extends Component {
                                 <a className="nav-link" data-widget="pushmenu" href="#"><i className="fas fa-bars" /></a>
                             </li>
                             <li className="nav-item d-none d-sm-inline-block">
-                                <a href="/menu" className="nav-link">Home</a>
+                                <a href="/allfilms" className="nav-link">Home</a>
                             </li>
                             <li className="nav-item d-none d-sm-inline-block">
                                 <a href="/" className="nav-link">Login</a>

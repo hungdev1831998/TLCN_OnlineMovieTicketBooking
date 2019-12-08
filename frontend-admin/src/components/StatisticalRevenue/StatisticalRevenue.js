@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Menu from '../Menu/Menu';
 
 
 class StatisticalRevenue extends Component {
     render() {
         return (
             <div>
+            <Menu/>
                 {/* Content Wrapper. Contains page content */}
                 <div className="content-wrapper">
                     {/* Content Header (Page header) */}

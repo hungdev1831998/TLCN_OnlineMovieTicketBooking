@@ -88,7 +88,7 @@ class ContentWeb extends React.Component {
                                         {/* Modal content*/}
                                         <div className="modal-content" >
                                             <div className="modal-header" >
-                                                <h4><span className="glyphicon glyphicon-lock" /> Details Films</h4>
+                                                <h4><span className="glyphicon glyphicon-lock" /> Chi tiết phim </h4>
                                                 <button type="button" className="close" data-dismiss="modal" >×</button>
                                             </div>
                                             <div className="modal-body" >
