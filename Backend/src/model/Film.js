@@ -36,6 +36,10 @@ var FilmSchema = new mongoose.Schema({
     AnhBia: {
         type: String,
         require: true
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 });
 var Film = mongoose.model('Film', FilmSchema);

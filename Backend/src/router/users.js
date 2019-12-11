@@ -63,6 +63,7 @@ router.post('/register', (req, res) => {
     }
 });
 
+
 router.post('/login', (req, res, next) => {
     if (req.body.email && req.body.password) {
         User.authenticate(req.body.email, req.body.password, (error, user) => {
@@ -80,7 +81,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/allusers', (req, res)  => {
-    User.find({}).then((users) => {
+    User.find({deleted: false}).then((users) => {
         res.json(users);
     }).catch((err) => {
         if(err) {
@@ -89,14 +90,18 @@ router.get('/allusers', (req, res)  => {
     });
 });
 
-router.post('/delete', (req, res) => {
-    User.deleteOne({email: req.body.email}).then((email) => {
-        console.log("delete user success!");
-        res.json({"mess" : "delete user success!"});
-    }).catch((err) => {
-        if(err)
-            throw err;
-    })
+router.put('/delete', (req, res) => {
+    User.updateMany({
+        $and: [{'email': req.body.email}]},
+        {$set: {'deleted': true}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                console.log("delete user success!");
+                res.json({message: "delete user success!"});
+        }
+    });
 });
 
 
@@ -114,7 +119,7 @@ router.put('/update', (req, res) => {
 });
 
 router.post('/getUserByEmail', (req, res)=>{
-    User.find({ email: req.body.email }).then((user) => {
+    User.find({$and: [{ email: req.body.email }, {deleted: false}] }).then((user) => {
         res.json(user);
     }).catch((err) => {
         if (err) {

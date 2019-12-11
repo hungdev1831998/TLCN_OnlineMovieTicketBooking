@@ -250,21 +250,27 @@ class BookSeat extends React.Component {
               }
               ghes.push(a);
             });
-            ghes.forEach(item => {
-              axios.put('http://localhost:3001/ghe/updatestatus', item)
-                .then((res) => {
-                  if (res.data['mess'] === "update status success!") {
-                    this.setState({ choosing: [] });
-                    strghe = "";
-                    stt = [];
-                    return (
-                      window.location = '/',
-                      window.alert('Đặt vé thành công!')
-                    )
-                  }
-
+            const tongthu = {TenFilm: this.state.TenFilm,
+                             TongThu: this.state.choosing.length}
+            axios.put('http://localhost:3001/film/updateTongThu', tongthu)
+                .then ((res) => {
+                  ghes.forEach(item => {
+                    axios.put('http://localhost:3001/ghe/updatestatus', item)
+                      .then((res) => {
+                        if (res.data['mess'] === "update status success!") {
+                          this.setState({ choosing: [] });
+                          strghe = "";
+                          stt = [];
+                          return (
+                            window.location = '/',
+                            window.alert('Đặt vé thành công!')
+                          )
+                        }
+      
+                      });
+                  });
                 });
-            });
+            
           }
         });
     } else {

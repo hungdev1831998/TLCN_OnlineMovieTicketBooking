@@ -30,7 +30,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/getfilms', (req, res) => {
-    Film.find({ $and: [{ NgayChieu: { $lte: Date.now() } }, { NgayKetThuc: { $gte: Date.now() } }] }, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
+    Film.find({ $and: [{ NgayChieu: { $lte: Date.now() } }, { NgayKetThuc: { $gte: Date.now() } }, {deleted: false}] }, 'TenFilm DaoDien TomTat TenNuocSX AnhBia NgayChieu NgayKetThuc').then((films) => {
         res.json(films);
     }).catch((err) => {
         if (err) {
@@ -39,24 +39,8 @@ router.get('/getfilms', (req, res) => {
     });
 });
 router.get('/allfilms', (req, res) => {
-    Film.find({}).then((films) => {
+    Film.find({deleted: false}).then((films) => {
         res.json(films);
-    }).catch((err) => {
-        if (err) {
-            throw err;
-        }
-    });
-});
-
-router.get('/film/:id', (req, res) => {
-    Film.findById(req.params.id).then((film) => {
-
-        if (film) {
-            res.json(film);
-        } else {
-            res.sendStatus(404);
-        }
-
     }).catch((err) => {
         if (err) {
             throw err;
@@ -112,7 +96,7 @@ router.post('/upload',upload.single('AnhBia'), (req, res) => {
 });
 
 router.post('/getImageByName', (req, res)=>{
-    Film.find({ $or: [{ TenFilm: req.body.TenFilm } ] }, 'TenFilm AnhBia').then((films) => {
+    Film.find({ $and: [{ TenFilm: req.body.TenFilm }, {deleted: false}] }, 'TenFilm AnhBia').then((films) => {
         res.json(films);
     }).catch((err) => {
         if (err) {
@@ -122,7 +106,7 @@ router.post('/getImageByName', (req, res)=>{
 })
 
 router.post('/getFilmByName', (req, res)=>{
-    Film.find({ $or: [{ TenFilm: req.body.TenFilm } ] }).then((films) => {
+    Film.find({ $or: [{ TenFilm: req.body.TenFilm }, {deleted: false}] }).then((films) => {
         res.json(films);
     }).catch((err) => {
         if (err) {
@@ -131,14 +115,18 @@ router.post('/getFilmByName', (req, res)=>{
     });
 })
 
-router.post('/delete', (req, res) => {
-    Film.deleteOne({TenFilm: req.body.TenFilm}).then((films) => {
-        console.log("delete film success!");
-        res.json({"mess" : "delete film success!"});
-    }).catch((err) => {
-        if(err)
-            throw err;
-    })
+router.put('/delete', (req, res) => {
+    Film.updateMany({
+        $and: [{'TenFilm': req.body.TenFilm}]},
+        {$set: {'deleted': true}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                console.log("delete film success!");
+                res.json({"mess" : "delete film success!"});
+        }
+    });
 });
 
 
@@ -152,32 +140,48 @@ router.put('/update', (req, res) => {
             if(err) {
                 throw err;
             } else {
+                console.log("update film success!");
                 res.json({message: 'update film success!'});
         }
     });
 });
-// router.post('/addnewfilm', (req, res) => {
-//     var newFilm = {
-//         TenFilm: req.body.TenFilm,
-//         DaoDien: req.body.DaoDien,
-//         TenNuocSX: req.body.TenNuocSX,
-//         TongThu: req.body.TongThu,
-//         TongChi: req.body.TongChi,
-//         NgayChieu: req.body.NgayChieu,
-//         NgayKetThuc: req.body.NgayKetThuc,
-//         AnhBia: req.body.AnhBia
-//     };
 
-//     var film = new Film(newFilm);
+router.put('/updateTongThu', (req, res) =>{
+    Film.find({$and: [{ TenFilm: req.body.TenFilm }, {deleted: false}]}, 'TongThu').then((films) => {
+        if(films.length !== 0) {
+            const tongthu = films[0]["TongThu"] + (req.body.TongThu * 50000);
+            Film.updateMany({
+                $and: [{'TenFilm': req.body.TenFilm}]},
+                {$set: {'TongThu': tongthu}}, 
+                (err) => {
+                    if(err) {
+                        throw err;
+                    } else {
+                        console.log("update tong thu success!");
+                        res.json({message: 'update tong thu success!'});
+                }
+            });
+        }
+        else {
+            console.log("Khong co film nay!");
+            res.json({message: 'Khong co film nay!'});
+        }
+    }).catch((err) => {
+        if (err) {
+            throw err;
+        }
+    });
+    
+});
 
-//     film.save().then(() => {
-//         console.log("New film created!");
-//     }).catch((err) => {
-//         if(err) {
-//             throw err;
-//         }
-//     });
-//     res.send("A new film created with success!");
-// });
+router.get("/thuchi", (req, res) => {
+    Film.find({$and: [{deleted: false}]}, 'TenFilm TongChi TongThu').then((films) => {
+        res.json(films);
+    }).catch((err) => {
+        if (err) {
+            throw err;
+        }
+    });
+});
 
 module.exports = router;

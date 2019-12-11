@@ -20,12 +20,16 @@ var UserSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'user'
+  },
+  deleted: {
+    type: Boolean,
+    default: false
   }
 });
 
 // //authenticate input against database
 UserSchema.statics.authenticate = (email, password, callback) => {
-  User.findOne({ email: email }).exec((err, user) => {
+  User.findOne({ $and: [{email: email}, {deleted: false}] }).exec((err, user) => {
     if (err) {
       return callback(err)
     } else if (!user) {
