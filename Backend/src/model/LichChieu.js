@@ -12,6 +12,10 @@ var LichChieuSchema = new mongoose.Schema({
     ThoiGianChieu: {
         type: Date,
         required: true
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 });
 var LichChieu = mongoose.model('LichChieu', LichChieuSchema);

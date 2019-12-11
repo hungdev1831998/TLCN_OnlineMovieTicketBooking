@@ -48,7 +48,7 @@ router.post('/addlichchieu', (req, res) => {
 });
 
 router.post('/getlichbytenfilm', (req, res) => {
-    LichChieu.find({ $or: [{ 'TenFilm': req.body.TenFilm }] }).then((lichs) => {
+    LichChieu.find({ $and: [{ 'TenFilm': req.body.TenFilm }, {'deleted': false}] }).then((lichs) => {
         return res.json(lichs);
     }).catch((err) => {
         if (err) {
@@ -58,7 +58,7 @@ router.post('/getlichbytenfilm', (req, res) => {
 });
 
 router.post('/getphongbygiochieu', (req, res) => {
-    LichChieu.find({ $and: [{ 'TenFilm': req.body.TenFilm }, {'ThoiGianChieu' : req.body.ThoiGianChieu}]}, 'TenPhong').then((phong) => {
+    LichChieu.find({ $and: [{ 'TenFilm': req.body.TenFilm }, {'ThoiGianChieu' : req.body.ThoiGianChieu}, {'deleted': false}]}, 'TenPhong').then((phong) => {
         return res.json(phong);
     }).catch((err) => {
         if(err) {
@@ -73,6 +73,34 @@ router.get('/getlich', (req, res) => {
     }).catch((err) => {
         if (err) {
             throw err;
+        }
+    });
+});
+
+router.put('/update', (req, res) => {
+    LichChieu.updateMany({
+        $and: [{'TenFilm': req.body.TenFilm}, {_id: req.body._id}]},
+        {$set: {'TenPhong': req.body.TenPhong, 'ThoiGianChieu': req.body.ThoiGianChieu}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                console.log("update shedule success!");
+                res.json({message: 'update shedule success!'});
+        }
+    });
+});
+
+router.put('/delete', (req, res) => {
+    LichChieu.updateMany({
+        $and: [{'TenFilm': req.body.TenFilm}, {'_id': req.body._id}]},
+        {$set: {'deleted': true}}, 
+        (err) => {
+            if(err) {
+                throw err;
+            } else {
+                console.log("delete shedule success!");
+                res.json({"mess" : "delete shedule success!"});
         }
     });
 });

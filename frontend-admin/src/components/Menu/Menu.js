@@ -125,19 +125,14 @@ class Menu extends Component {
                                     </a>
                                     <ul className="nav nav-treeview">
                                         <li className="nav-item">
-                                            <a href="/allfilms" className="nav-link">
+                                            <a href="/allfilmsshedule" className="nav-link">
                                                 <i className="far fa-circle nav-icon" />
-                                                <p>All Schedule</p>
+                                                <p>All films</p>
                                             </a>
                                         </li>
+                                        
                                         <li className="nav-item">
-                                            <a href="/allfilms" className="nav-link">
-                                                <i className="far fa-circle nav-icon" />
-                                                <p>Add Schedule</p>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a href="/allfilms" className="nav-link">
+                                            <a href="/allfilmsshedule" className="nav-link">
                                                 <i className="far fa-circle nav-icon" />
                                                 <p>Edit Schedule</p>
                                             </a>
