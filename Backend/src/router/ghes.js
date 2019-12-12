@@ -201,7 +201,7 @@ router.put('/updatestatus', (req, res) => {
 router.put('/updatestatusbyTenPhong', (req, res) => {
     Ghe.updateMany(
         {$and: [{'TenPhong': req.body.TenPhong}]},
-        {$set: {'status': req.body.status}}, 
+        {$set: {'status': false}}, 
         (err) => {
             if(err) {
                 throw err;

@@ -106,7 +106,7 @@ router.post('/getImageByName', (req, res)=>{
 })
 
 router.post('/getFilmByName', (req, res)=>{
-    Film.find({ $or: [{ TenFilm: req.body.TenFilm }, {deleted: false}] }).then((films) => {
+    Film.find({ $and: [{ TenFilm: req.body.TenFilm }, {deleted: false}] }).then((films) => {
         res.json(films);
     }).catch((err) => {
         if (err) {

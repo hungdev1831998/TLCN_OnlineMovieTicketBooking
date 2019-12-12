@@ -52,7 +52,7 @@ router.post('/addve', (req, res) => {
                                         '<label htmlFor="psw"><span className="" /> Tên phòng chiếu: 0'+ newVe.TenPhong +'</label><br />' +
                                         '<label htmlFor="psw"><span className="" /> ghế: '+ newVe.TenGhe +'</label><br />' +
                                         '<label htmlFor=""><span className="" /> Thời gian chiếu: ' + newVe.ThoiGianChieu +'</label><br />' +
-                                        '<label htmlFor=""><span className="" /> Thời gian chiếu: ' + newVe.ThoiGianDat +'</label><br />' +
+                                        '<label htmlFor=""><span className="" /> Thời gian đặt vé: ' + newVe.ThoiGianDat +'</label><br />' +
                                     '</div>' +
                                   '</form></body>'
                         }
@@ -96,11 +96,10 @@ router.put('/updatestatus', (req, res) => {
     )
 })
 
-router.put('/updatestatusbyTenPhong', (req, res) => {
-    console.log(req.body.status);
+router.put('/updatestatusbyTen', (req, res) => {
     Ve.updateMany(
-        {$and: [{"TenPhong": req.body.TenPhong}]},
-        {$set: {'status': req.body.status}}, 
+        {$and: [{"TenPhong": req.body.TenPhong}, , {'TenFilm': req.body.TenFilm}, {'ThoiGianChieu': req.body.ThoiGianChieu}]},
+        {$set: {'status': true, 'ThoiGianXacNhan': Date.now()}}, {multi: true},
         (err) => {
             if(err) {
                 throw err;
@@ -111,8 +110,8 @@ router.put('/updatestatusbyTenPhong', (req, res) => {
     )
 })
 
-router.delete('/delete', (req, res) => {
-    Ghe.deleteMany({'TenPhong': req.body.TenPhong}, (err)=> {
+router.post('/delete', (req, res) => {
+    Ve.deleteMany({$and: [{"TenPhong": req.body.TenPhong}, {'TenFilm': req.body.TenFilm}, {'ThoiGianChieu': req.body.ThoiGianChieu}]}, (err)=> {
         if(err)
             throw err;
         res.json({mess: "delete success!"});

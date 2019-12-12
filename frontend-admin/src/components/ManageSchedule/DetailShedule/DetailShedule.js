@@ -70,7 +70,18 @@ class DetailShedule extends Component {
         var film = film;
         axios.put("http://localhost:3001/lichchieu/delete", film)
             .then((res) => {
-                window.location.reload();
+                if(res.data["mess"] === "delete shedule success!") {
+                    axios.put("http://localhost:3001/ghe/updatestatusbyTenPhong", film)
+                    .then((res1) => {
+                        if(res1.data["mess"] === "update status success!") {
+                            axios.post("http://localhost:3001/ve/delete", film)
+                            .then((res2) => {
+                                if(res2.data["mess"] === "delete success!")
+                                    window.location.reload();
+                            });
+                        }
+                    });
+                }
             });
     }
 
