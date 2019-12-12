@@ -194,7 +194,7 @@ class AddFilm extends Component {
                                                         <div className="form-group row">
                                                             <label htmlFor="inputName2" className="col-sm-2 col-form-label">Tổng chi phí</label>
                                                             <div className="col-sm-10">
-                                                                <input type="text" className="form-control" id="inputName2" placeholder="Tổng chi phí" onChange={this.onChangeTongChi}/>
+                                                                <input type="number" min="0" className="form-control" id="inputName2" placeholder="Tổng chi phí" onChange={this.onChangeTongChi}/>
                                                             </div>
                                                         </div>
 

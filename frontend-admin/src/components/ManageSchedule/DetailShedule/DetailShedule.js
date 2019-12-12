@@ -135,7 +135,7 @@ class DetailShedule extends Component {
                                                                 <div className="form-group row">
                                                                     <label htmlFor="inputName" className="col-sm-2 col-form-label">Phòng chiếu</label>
                                                                     <div className="col-sm-10">
-                                                                        <input type="text" className="form-control" id={index} placeholder="Phòng chiếu" defaultValue={item["TenPhong"]} onChange={this.onChangePhongChieu}/>
+                                                                        <input type="number" min="1" max="7" className="form-control" id={index} placeholder="Phòng chiếu" defaultValue={item["TenPhong"]} onChange={this.onChangePhongChieu}/>
                                                                     </div>
                                                                 </div>
 
@@ -155,7 +155,7 @@ class DetailShedule extends Component {
 
                                                                 <div className="row">
                                                                     <div className="col-12">
-                                                                        <a href="/allfilms" className="btn btn-secondary">Cancel</a>
+                                                                        <a href="/allfilmsshedule" className="btn btn-secondary">Cancel</a>
                                                                         <button type="submit" className="btn btn-success float-right">Update</button>
                                                                     </div>
                                                                 </div>
